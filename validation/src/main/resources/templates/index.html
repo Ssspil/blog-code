@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation 확인하기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="myContainer">
+        <div class="col-md-6" style="width: 40.5%; float : left; margin :50px;">
+            <h1> 회원가입 </h1>
+            <form>
+                <div class="form-group" style="margin-bottom: 15px">
+                    <label for="name">이름</label>
+                    <input type="text" class="form-control" id="name" placeholder="이름을 입력하세요">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px">
+                    <label for="phoneNumber"> 휴대폰번호 </label>
+                    <input type="text" class="form-control" id="phoneNumber" placeholder="휴대폰 번호를 입력하세요">
+                </div>
+                <div class="form-group" style="margin-bottom: 15px">
+                    <label for="email">이메일</label>
+                    <input type="text" class="form-control" id="email" placeholder="이메일을 입력하세요">
+                </div>
+                <button type="button" class="btn btn-primary" id="btnSave">등록</button>
+            </form>
+        </div>
+        <div class="col-md-6" style="width: 40.5%; float: right; margin :50px;">
+            <h1> 회원목록 </h1>
+            <div style="border: 1px solid blue; width: 100%; height:500px;">
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+
+    // 회원 가입 등록
+    $('#btnSave').click(function(){
+        memberJoin();
+    })
+
+    // 회원 가입 등록 함수
+    async function memberJoin(){
+        const url = '/member'
+        const member = {
+            name : $('#name').val(),
+            phoneNumber : $('#phoneNumber').val(),
+            email : $('#email').val()
+        }
+
+        const options = {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(member)
+        }
+
+        try {
+            const response = await fetch(url, options);
+            console.log('response', response);
+
+            const data = await response.json();		// 데이터 json으로 변환
+            console.log('요청 성공 : ', data);
+        } catch (error) {
+            console.log('요청 실패 :', error);
+        }
+
+    }
+</script>
+
+</html>
