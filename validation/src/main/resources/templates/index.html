@@ -23,6 +23,7 @@
                 <div class="form-group" style="margin-bottom: 15px">
                     <label for="email">이메일</label>
                     <input type="text" class="form-control" id="email" placeholder="이메일을 입력하세요">
+
                 </div>
                 <button type="button" class="btn btn-primary" id="btnSave">등록</button>
             </form>
@@ -62,13 +63,10 @@
             data: JSON.stringify(member)
         })
         .done(function(data) {
-            console.log('요청 성공 : ', data);
             memberListHTML(data);
         })
-        .fail(function(xhr, status, error) {
-            console.log('Error: ' + error);
-            console.log('Status: ' + status);
-            console.dir(xhr);
+        .fail(function(error) {
+            errorShowHTML(error);
         });
 
 
@@ -100,6 +98,18 @@
         `;
         $('#member-list').append(template);
     }
-</script>
 
+    // 에러 메시지 출력 함수
+    function errorShowHTML(response){
+        const errorFields = response.responseJSON.errors;
+
+        errorFields.map(error => {
+            let field = error.field;
+            let template = `
+                <span class="error-message text-danger text-small" id="error-${field}">${error.defaultMessage}</span>
+            `;
+            $(`#${field}`).after(template);
+        });
+    }
+</script>
 </html>
