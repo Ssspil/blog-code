@@ -19,7 +19,7 @@ import lombok.Setter;
 public class MemberRequestDto {
 
     private Long id;
-    @NotBlank
+    @NotBlank(message = "이름은 공백일 수 없습니다.")
     private String name;
 
     @NotBlank
