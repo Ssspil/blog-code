@@ -101,12 +101,12 @@
 
     // 에러 메시지 출력 함수
     function errorShowHTML(response){
-        const errorFields = response.responseJSON.errors;
+        const errorList = response.responseJSON.data.errorList;
 
-        errorFields.map(error => {
+        errorList.map(error => {
             let field = error.field;
             let template = `
-                <span class="error-message text-danger text-small" id="error-${field}">${error.defaultMessage}</span>
+                <div class="error-message text-danger text-small" id="error-${field}">${error.msg}</div>
             `;
             $(`#${field}`).after(template);
         });
