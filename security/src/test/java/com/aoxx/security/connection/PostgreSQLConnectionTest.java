@@ -9,7 +9,7 @@ import java.sql.*;
 
 public class PostgreSQLConnectionTest {
 
-    private String URL = "jdbc:postgresql://localhost:5432/postgres";
+    private String URL = "jdbc:postgresql://localhost:5432/postgres?currentSchema=spring";
     private String USERNAME = "postgres";
     private String PASSWORD = "0000";
 
@@ -28,7 +28,7 @@ public class PostgreSQLConnectionTest {
         try (Connection con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
              Statement pre = con.createStatement();
              // DB 스키마 이름이 spring , 테이블 명 : members.info
-             ResultSet rs = pre.executeQuery("SELECT * FROM spring.members_info WHERE id = 9")) {
+             ResultSet rs = pre.executeQuery("SELECT * FROM members_info WHERE id = 9")) {
 
             // When
             String name = null;
