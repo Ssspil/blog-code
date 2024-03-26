@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 /**
  * Created by rius0918@gmail.com on 2024. 2. 11.
- * Blog : http://aoxx.co.kr
+ * Blog : http://coasis.tistory.com
  * Github : https://github.com/Ssspil
  */
 @Service

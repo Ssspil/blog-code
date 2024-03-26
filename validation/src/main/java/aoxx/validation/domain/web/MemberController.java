@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Created by rius0918@gmail.com on 2024. 02. 11.
- * Blog : http://aoxx.co.kr
+ * Blog : http://coasis.tistory.com
  * Github : http://github.com/ssspil
  */
 
