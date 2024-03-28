@@ -17,7 +17,7 @@ import java.util.Map;
 public class ClientRequest {
 
     private String url;
-    private Map<String, String> params;
+    private Object params;
     private String method;
     private String ip;
 }

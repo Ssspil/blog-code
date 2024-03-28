@@ -36,15 +36,13 @@ public class ClientInfoArgumentResolver implements HandlerMethodArgumentResolver
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        log.info("resolveArgument 실행1 {}", parameter);
-        log.info("resolveArgument 실행2 {}", mavContainer);
-        log.info("resolveArgument 실행3 {}", webRequest);
-        log.info("resolveArgument 실행4 {}", binderFactory);
 
         ClientRequest clientRequest = new ClientRequest();
         HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
         clientRequest.setIp(request.getRemoteAddr());
-        clientRequest.setParams((Map<String, String>) request.getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE));
+        clientRequest.setUrl(request.getRequestURI());
+        clientRequest.setMethod(request.getMethod());
+        clientRequest.setParams(request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE));
 
         return clientRequest;
     }
