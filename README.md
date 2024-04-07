@@ -2,7 +2,7 @@
 
 ====================
 
-https://aoxx.co.kr 에서 제공하는 예제 코드
+https://coasis.tistory.com 에서 제공하는 예제 코드
 
 ## Spring
 
