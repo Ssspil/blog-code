@@ -1,4 +1,4 @@
-package com.argument.resolver.config.domain.Client;
+package com.argument.resolver.domain.Client;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,6 +1,6 @@
 package com.argument.resolver.config;
 
-import com.argument.resolver.config.domain.resolver.ClientInfoArgumentResolver;
+import com.argument.resolver.domain.resolver.ClientInfoArgumentResolver;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

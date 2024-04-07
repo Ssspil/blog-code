@@ -1,4 +1,4 @@
-package com.argument.resolver.config.domain.resolver;
+package com.argument.resolver.domain.resolver;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

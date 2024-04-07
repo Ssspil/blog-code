@@ -1,6 +1,6 @@
-package com.argument.resolver.config.domain.resolver;
+package com.argument.resolver.domain.resolver;
 
-import com.argument.resolver.config.domain.Client.ClientRequest;
+import com.argument.resolver.domain.Client.ClientRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -9,8 +9,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.HandlerMapping;
-
-import java.util.Map;
 
 
 /**
@@ -44,6 +42,7 @@ public class ClientInfoArgumentResolver implements HandlerMethodArgumentResolver
         clientRequest.setMethod(request.getMethod());
         clientRequest.setParams(request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE));
 
+        // ClientRequest(url=/spring-mvc/coasis, params=/spring-mvc/{name}, method=GET, ip=0:0:0:0:0:0:0:1)
         return clientRequest;
     }
 }

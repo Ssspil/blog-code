@@ -1,8 +1,7 @@
-package com.argument.resolver.config.domain.web;
+package com.argument.resolver.web;
 
-import com.argument.resolver.config.domain.Client.ClientRequest;
-import com.argument.resolver.config.domain.resolver.CliectInfo;
-import jakarta.servlet.http.HttpServletRequest;
+import com.argument.resolver.domain.Client.ClientRequest;
+import com.argument.resolver.domain.resolver.CliectInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +24,9 @@ public class Contoller {
     // 페이지 이동
     @GetMapping("/{name}")
     public String detail(@CliectInfo ClientRequest clientRequest, @PathVariable String name, Model model){
-        log.info("컨트롤러 : {}", clientRequest);
+
+        // clientRequest 객체 가지고 로직 수행
+
         model.addAttribute("name", name);
         return "detail";
     }
@@ -34,7 +35,9 @@ public class Contoller {
     @GetMapping("/api/{name}")
     @ResponseBody
     public String apiResponse(@CliectInfo ClientRequest clientRequest, @PathVariable String name){
-        log.info("컨트롤러 : {} ", clientRequest);
+
+        // clientRequest 객체 가지고 로직 수행
+
         return name;
     }
 }
