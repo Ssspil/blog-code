@@ -40,6 +40,10 @@ public class Flight {
         this.route = route;
     }
 
+    public Money getFee(){
+        return fee;
+    }
+
     // 항공권 예매
     public Reservation reserve(Client ... clients){
         List<Client> clientList = List.of(clients);
@@ -47,9 +51,9 @@ public class Flight {
         return new Reservation(this, clientList, calculateFee(peopleCount), peopleCount);
     }
 
-    // 항공권 계산
+    // 할인된 항공편 인원 수 만큼 계산
     private Money calculateFee(int peopleCount){
-        return Money.ZERO;
+        return route.calculateFee(this).multiply(peopleCount);
     }
 }
 

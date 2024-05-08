@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import java.util.List;
 
+@ToString
 public class Reservation {
     private Flight flight;
     private List<Client> clientList;

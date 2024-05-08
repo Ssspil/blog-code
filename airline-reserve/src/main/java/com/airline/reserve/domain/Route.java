@@ -30,5 +30,8 @@ public class Route {
         this.discountPolicy = discountPolicy;
     }
 
-
+    // (고정, 비율)할인 방법으로 할인된 해당 노선 가격
+    public Money calculateFee(Flight flight) {
+        return flight.getFee().minus(discountPolicy.calculateDiscountAmount(flight));
+    }
 }
