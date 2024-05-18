@@ -12,6 +12,7 @@ public class Gamer implements Player {
 
     private List<Card> haveCards = new ArrayList<>();
     private String name;
+    private int score = 0;
 
     public Gamer(String name) {
         this.name = name;
@@ -25,14 +26,16 @@ public class Gamer implements Player {
         return name;
     }
 
+    // 카드 뽑기
     @Override
     public void draw(CardDeck cardDeck) {
         Card card = cardDeck.getCard();
         haveCards.add(card);
     }
 
+    // 카드 오픈
     @Override
-    public void cardOpen() {
-
+    public void cardOpen(Rule rule) {
+        score = rule.calculateScore(haveCards);
     }
 }

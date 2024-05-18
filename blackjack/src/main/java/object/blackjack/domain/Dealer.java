@@ -12,6 +12,7 @@ public class Dealer implements Player{
 
     private List<Card> haveCards = new ArrayList<>();
     private String name = "딜러";
+    private int score = 0;
 
     public String getName() {
         return name;
@@ -21,14 +22,16 @@ public class Dealer implements Player{
         return haveCards;
     }
 
+    // 카드 뽑기
     @Override
     public void draw(CardDeck cardDeck) {
         Card card = cardDeck.getCard();
         haveCards.add(card);
     }
 
+    // 카드 오픈
     @Override
-    public void cardOpen() {
-
+    public void cardOpen(Rule rule) {
+        score = rule.calculateScore(haveCards);
     }
 }

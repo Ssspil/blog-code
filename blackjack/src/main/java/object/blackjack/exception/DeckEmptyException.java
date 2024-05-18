@@ -6,6 +6,8 @@ package object.blackjack.exception;
  * Blog : http://coasis.tistory.com
  * Github : https://github.com/Ssspil
  */
-class DeckEmptyException extends RuntimeException {
-
+public class DeckEmptyException extends RuntimeException {
+    public DeckEmptyException(String message) {
+        super(message);
+    }
 }

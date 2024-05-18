@@ -9,9 +9,68 @@ import java.util.List;
  */
 public class Rule {
 
-    public int getScore(List<Card> cards){
-        return 0;
+    private int VICTORY_DEALER = 0;
+    private int VICTORY_GAMER = 0;
+
+    private final int BLACKJACK_SCORE = 21;
+
+    public int getVICTORY_DEALER() {
+        return VICTORY_DEALER;
     }
 
-    public void getWinner(Dealer dealer, Gamer gamer) {  }
+    public int getVICTORY_GAMER() {
+        return VICTORY_GAMER;
+    }
+
+    public int getBLACKJACK_SCORE() {
+        return BLACKJACK_SCORE;
+    }
+
+    public int calculateScore(List<Card> cards){
+        int sum = 0;
+        int aceCount = 0;
+
+        // 첫 번째 합계 계산 및 에이스 카운트
+        for (Card card : cards) {
+            int value = card.getDenomination().getValues()[0];
+            if (value == 1) {  // 에이스 카드인 경우
+                value = 11;    // 먼저 11로 계산
+                aceCount++;
+            }
+            sum += value;
+        }
+
+        // 점수가 21을 초과하면, 에이스를 1로 변환
+        while (sum > 21 && aceCount > 0) {
+            sum -= 10;  // 에이스 하나를 11에서 1로 변경 (11 - 10 = 1)
+            aceCount--;
+        }
+
+        return sum;
+    }
+
+    public String getWinner(Dealer dealer, Gamer gamer) {
+        int dealerScore = calculateScore(dealer.getHaveCards());    // 딜러 점수
+        int gamerScore = calculateScore(gamer.getHaveCards());      // 게이머 점수
+
+        String winner = null;
+
+        if(gamerScore == BLACKJACK_SCORE){  // 게이머가 블랙잭일 경우
+            winner = gamer.getName();
+            VICTORY_GAMER++;
+        } else if(gamerScore < BLACKJACK_SCORE && dealerScore < gamerScore) { // 블랙잭 점수보다 낮으면서 딜러보다 점수 높을 떄
+            winner = gamer.getName();
+            VICTORY_GAMER++;
+        } else if(BLACKJACK_SCORE < dealerScore && gamerScore < BLACKJACK_SCORE) { // 딜러도 블랙잭 점수 넘었을 떄
+            winner = gamer.getName();
+            VICTORY_GAMER++;
+        } else if(dealerScore <= BLACKJACK_SCORE && gamerScore < BLACKJACK_SCORE) {   // 둘다 블랙잭 점수보다 낮은데 서로 같은 점수 일 때는 무승부
+
+        } else {    // 그 이외에는 다 지는 것
+            winner = dealer.getName();
+            VICTORY_DEALER++;
+        }
+
+        return winner;
+    }
 }

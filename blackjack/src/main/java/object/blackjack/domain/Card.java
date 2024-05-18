@@ -10,10 +10,16 @@ public class Card {
     private Pattern pattern;
     private Denomination denomination;
 
+    @Override
+    public String toString() {
+        return pattern + "이며, " + denomination + "이며 보이는 카드 숫자는 " + denomination.getValues()[0] + " 입니다";
+    }
+
     public Card(Pattern pattern, Denomination denomination) {
         this.pattern = pattern;
         this.denomination = denomination;
     }
+
     enum Denomination {  // 카드 숫자
         TWO(2), THREE(3), FOUR(4), FIVE(5), SIX(6),
         SEVEN(7), EIGHT(8), NINE(9), TEN(10),
@@ -32,10 +38,6 @@ public class Card {
 
     enum Pattern {   // 카드 패턴
         DIAMOND, HEART, CLUB, SPADE
-    }
-
-    public Pattern getPattern() {
-        return pattern;
     }
 
     public Denomination getDenomination() {
