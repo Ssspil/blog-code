@@ -1,4 +1,38 @@
 package object.blackjack.domain;
 
-public class Gamer {
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by rius0918@gmail.com on 2024. 5. 26.
+ * Blog : http://coasis.tistory.com
+ * Github : https://github.com/Ssspil
+ */
+public class Gamer implements Player {
+
+    private List<Card> haveCards = new ArrayList<>();
+    private String name;
+
+    public Gamer(String name) {
+        this.name = name;
+    }
+
+    public List<Card> getHaveCards() {
+        return haveCards;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void draw(CardDeck cardDeck) {
+        Card card = cardDeck.getCard();
+        haveCards.add(card);
+    }
+
+    @Override
+    public void cardOpen() {
+
+    }
 }
