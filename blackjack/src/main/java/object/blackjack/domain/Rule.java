@@ -55,7 +55,7 @@ public class Rule {
         int dealerScore = calculateScore(dealer.getHaveCards());    // 딜러 점수
         int gamerScore = calculateScore(gamer.getHaveCards());      // 게이머 점수
 
-        String winner = null;
+        String winner = dealer.getName();
 
         if(gamerScore == BLACKJACK_SCORE){  // 게이머가 블랙잭일 경우
             winner = gamer.getName();
@@ -66,10 +66,7 @@ public class Rule {
         } else if(BLACKJACK_SCORE < dealerScore && gamerScore < BLACKJACK_SCORE) { // 딜러도 블랙잭 점수 넘었을 떄
             winner = gamer.getName();
             VICTORY_GAMER++;
-        } else if(dealerScore <= BLACKJACK_SCORE && gamerScore < BLACKJACK_SCORE) {   // 둘다 블랙잭 점수보다 낮은데 서로 같은 점수 일 때는 무승부
-
-        } else {    // 그 이외에는 다 지는 것
-            winner = dealer.getName();
+        } else {
             VICTORY_DEALER++;
         }
 
