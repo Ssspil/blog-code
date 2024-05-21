@@ -26,6 +26,7 @@ public class Rule {
         return BLACKJACK_SCORE;
     }
 
+    // 점수 계산
     public int calculateScore(List<Card> cards){
         int sum = 0;
         int aceCount = 0;
@@ -49,6 +50,7 @@ public class Rule {
         return sum;
     }
 
+    // 승리자 판별
     public String getWinner(Dealer dealer, Gamer gamer) {
         int dealerScore = calculateScore(dealer.getHaveCards());    // 딜러 점수
         int gamerScore = calculateScore(gamer.getHaveCards());      // 게이머 점수

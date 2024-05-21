@@ -2,9 +2,7 @@ package object.blackjack.domain;
 
 import object.blackjack.exception.DeckEmptyException;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Stack;
 
 /**
