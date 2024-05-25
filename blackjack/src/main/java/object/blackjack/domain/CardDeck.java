@@ -13,6 +13,10 @@ import java.util.Stack;
 public class CardDeck {
     private Stack<Card> cardDeck;
 
+    public Stack<Card> getCardDeck() {
+        return cardDeck;
+    }
+
     public CardDeck() {
         cardDeck = new Stack<>();
         init();
