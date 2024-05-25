@@ -8,30 +8,10 @@ import java.util.List;
  * Blog : http://coasis.tistory.com
  * Github : https://github.com/Ssspil
  */
-public class Dealer implements Player{
+public class Dealer extends AbstractPlayer {
 
-    private List<Card> haveCards = new ArrayList<>();
-    private String name = "딜러";
-    private int score = 0;
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Card> getHaveCards() {
-        return haveCards;
-    }
-
-    // 카드 뽑기
-    @Override
-    public void draw(CardDeck cardDeck) {
-        Card card = cardDeck.getCard();
-        haveCards.add(card);
-    }
-
-    // 카드 오픈
-    @Override
-    public void cardOpen(Rule rule) {
-        score = rule.calculateScore(haveCards);
+    public Dealer() {
+        super("딜러");
     }
 }
+

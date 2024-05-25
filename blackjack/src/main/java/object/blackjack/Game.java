@@ -3,6 +3,7 @@ package object.blackjack;
 import object.blackjack.domain.*;
 
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 
 /**
@@ -66,10 +67,10 @@ public class Game {
     // 초기 카드 분배
     private void initialDeal() {
         // 딜러와 게이머에게 각각 두 장의 카드를 분배
-        dealer.draw(cardDeck);
-        dealer.draw(cardDeck);
-        gamer.draw(cardDeck);
-        gamer.draw(cardDeck);
+        IntStream.range(0, 2).forEach(i -> {
+            dealer.draw(cardDeck);
+            gamer.draw(cardDeck);
+        });
     }
 
     // 딜러 턴
