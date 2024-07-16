@@ -3,14 +3,15 @@
 # ===============================
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: "jdbc:postgresql://localhost:5432/postgres?currentSchema=spring"
     username: "postgres"
     password: "0000"
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
     database: postgresql
-    ddl-auto: update
+    hibernate:
+      ddl-auto: create
     properties:
       hibernate:
         default_schema: spring
@@ -18,3 +19,12 @@ spring:
     cors:
       allowed-origins: "http://localhost:3000"
       allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        orm:
+          jdbc:
+            bind: TRACE
