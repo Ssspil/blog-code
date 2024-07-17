@@ -21,8 +21,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
-        final String[] ALL_URL = new String[]{"/", "/login", "/join"};
-        final String[] ADMIN_URL = new String[]{"/admin"};
+        final String[] ALL_URL = new String[]{"/api/user/login", "/api/user/save"};
+        final String[] ADMIN_URL = new String[]{"/api/admin"};
         final String[] ROLES = new String[]{UserRole.SUPER.getCode(), UserRole.MANAGER.getCode(), UserRole.ADMIN.getCode()};
 
 
