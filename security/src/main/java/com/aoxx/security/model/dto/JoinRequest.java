@@ -1,4 +1,4 @@
-package com.aoxx.security.model;
+package com.aoxx.security.model.dto;
 
 import com.aoxx.security.domain.User;
 import com.aoxx.security.domain.UserRole;
@@ -11,12 +11,12 @@ import lombok.ToString;
 @ToString
 public class JoinRequest {
 
-    private String name;
+    private String email;
     private String password;
 
     public User toUserEntity(JoinRequest joinRequest){
         return User.builder()
-                .name(joinRequest.getName())
+                .email(joinRequest.getEmail())
                 .password(joinRequest.getPassword())
                 .role(UserRole.ADMIN)
                 .build();

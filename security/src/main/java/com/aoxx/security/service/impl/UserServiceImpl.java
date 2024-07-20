@@ -1,8 +1,8 @@
 package com.aoxx.security.service.impl;
 
 import com.aoxx.security.domain.User;
-import com.aoxx.security.exception.NameExistException;
-import com.aoxx.security.model.JoinRequest;
+import com.aoxx.security.exception.EmailExistException;
+import com.aoxx.security.model.dto.JoinRequest;
 import com.aoxx.security.repository.UserRepository;
 import com.aoxx.security.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +24,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(JoinRequest joinRequest) {
 
-        String username = joinRequest.getName();
-        Boolean isExist = userRepository.existsByName(username);
-        if(isExist) throw new NameExistException(username);
+        String email = joinRequest.getEmail();
+        Boolean isExist = userRepository.existsByEmail(email);
+        if(isExist) throw new EmailExistException(email);
 
         String encPassword = bCryptPasswordEncoder.encode(joinRequest.getPassword());
         joinRequest.setPassword(encPassword);
