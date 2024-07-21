@@ -16,6 +16,8 @@ spring:
       hibernate:
         default_schema: spring
   security:
+    jwt:
+      secret: "My secret key"
     cors:
       allowed-origins: "http://localhost:3000"
       allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"

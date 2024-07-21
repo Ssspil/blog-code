@@ -1,17 +1,28 @@
 package com.aoxx.security.config;
 
 import com.aoxx.security.domain.UserRole;
+import com.aoxx.security.filter.CustomAuthenticationFilter;
+import com.aoxx.security.jwt.JwtHelper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    // 시큐리티에게 AuthenticationConfiguration 주입 받기
+    private final AuthenticationConfiguration authenticationConfiguration;
+    private final JwtHelper jwtHelper;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
@@ -41,10 +52,21 @@ public class SecurityConfig {
                         .requestMatchers(ADMIN_URL).hasAnyRole(ROLES)
                         .anyRequest().authenticated());
 
+        // 필터 추가 (add: 그냥 추가, at : 그위치 대체, after : 그위치 후, before : 그 위치 전)
+        // AuthenticationManager 주입 받아야해서 Bean으로 따로 등록
+        http
+                .addFilterAt(new CustomAuthenticationFilter(authenticationManager(authenticationConfiguration), jwtHelper), UsernamePasswordAuthenticationFilter.class);
+
         // 세션 설정
         http
                 .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+
 }
