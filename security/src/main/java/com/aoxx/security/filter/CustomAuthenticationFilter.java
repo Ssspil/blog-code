@@ -1,5 +1,6 @@
 package com.aoxx.security.filter;
 
+import com.aoxx.security.domain.UserRole;
 import com.aoxx.security.jwt.JwtHelper;
 import com.aoxx.security.model.dto.CustomUserDetails;
 import jakarta.servlet.FilterChain;
@@ -51,10 +52,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         String email = customUserDetails.getUsername();
 
         Collection<? extends GrantedAuthority> authorities = authResult.getAuthorities();
-        Iterator<? extends  GrantedAuthority> iterator = authorities.iterator();
-        GrantedAuthority auth = iterator.next();
-
-        String role = auth.getAuthority();
+        String role = authorities.stream()
+                .findFirst()
+                .map(GrantedAuthority::getAuthority)
+                .orElse(UserRole.ADMIN.getCode());
 
         String authToken = jwtHelper.generateAccessToken(email, role);
 
