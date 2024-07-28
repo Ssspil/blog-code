@@ -1,7 +1,7 @@
 package com.aoxx.security.config;
 
 import com.aoxx.security.domain.UserRole;
-import com.aoxx.security.filter.CustomAuthenticationFilter;
+import com.aoxx.security.filter.JwtAuthenticationFilter;
 import com.aoxx.security.jwt.JwtHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -52,10 +52,9 @@ public class SecurityConfig {
                         .requestMatchers(ADMIN_URL).hasAnyRole(ROLES)
                         .anyRequest().authenticated());
 
-        // 필터 추가 (add: 그냥 추가, at : 그위치 대체, after : 그위치 후, before : 그 위치 전)
         // AuthenticationManager 주입 받아야해서 Bean으로 따로 등록
         http
-                .addFilterAt(new CustomAuthenticationFilter(authenticationManager(authenticationConfiguration), jwtHelper), UsernamePasswordAuthenticationFilter.class);
+                .addFilterAt(new JwtAuthenticationFilter(authenticationManager(authenticationConfiguration), jwtHelper), UsernamePasswordAuthenticationFilter.class);
 
         // 세션 설정
         http
@@ -64,6 +63,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    // 인증 관리자
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
         return authenticationConfiguration.getAuthenticationManager();
