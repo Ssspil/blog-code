@@ -1,4 +1,4 @@
-package com.aoxx.security.model.dto;
+package com.aoxx.security.model.dto.security;
 
 import com.aoxx.security.domain.User;
 import lombok.RequiredArgsConstructor;

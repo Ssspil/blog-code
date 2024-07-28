@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class JwtAuthenticationProvider implements AuthenticationProvider {
 
-    private final JwtHelper jwtHelper;
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -27,10 +26,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         JwtAuthenticationToken unAuthentication = (JwtAuthenticationToken) authentication;
 
-        String encPaswword = bCryptPasswordEncoder.encode((String)authentication.getCredentials());
         UserDetails user = userDetailsService.loadUserByUsername((String)unAuthentication.getPrincipal());
 
-        if(!bCryptPasswordEncoder.matches(encPaswword, user.getPassword())){
+        if(bCryptPasswordEncoder.matches((String)authentication.getCredentials(), user.getPassword())){
             return new JwtAuthenticationToken(user.getUsername(), "", user.getAuthorities()); // 인증 된 객체
         } else {
             throw new AuthenticationException("비밀번호가 다릅니다.") {};    // 익명 클래스로 예외 던지기

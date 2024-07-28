@@ -3,7 +3,9 @@ package com.aoxx.security.config;
 import com.aoxx.security.domain.UserRole;
 import com.aoxx.security.filter.JwtAuthenticationFilter;
 import com.aoxx.security.jwt.JwtHelper;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,6 +16,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Collections;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +30,10 @@ public class SecurityConfig {
     // 시큐리티에게 AuthenticationConfiguration 주입 받기
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtHelper jwtHelper;
+    @Value("${spring.security.cors.allowed-methods}")
+    private String[] ALLOW_METHODS;
+    @Value("${spring.security.cors.allowed-origins}")
+    private String  ALLOW_CROSS_ORIGIN_DOMAIN;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
@@ -36,7 +47,23 @@ public class SecurityConfig {
         final String[] ADMIN_URL = new String[]{"/api/admin"};
         final String[] ROLES = new String[]{UserRole.SUPER.getCode(), UserRole.MANAGER.getCode(), UserRole.ADMIN.getCode()};
 
+        http
+                .cors((cors -> cors.configurationSource(new CorsConfigurationSource() {
 
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+
+                        CorsConfiguration configuration = new CorsConfiguration();
+
+                        configuration.setAllowedOrigins(List.of(ALLOW_CROSS_ORIGIN_DOMAIN));
+                        configuration.setAllowedMethods(List.of(ALLOW_METHODS));
+                        configuration.setAllowedHeaders(Collections.singletonList("*"));
+                        configuration.setAllowCredentials(true);
+                        configuration.setMaxAge(3600L);
+
+                        return configuration;
+                    }
+                })));
         // csrf disable
         http
                 .csrf((auth) -> auth.disable());

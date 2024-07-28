@@ -1,4 +1,4 @@
-package com.aoxx.security.model.dto;
+package com.aoxx.security.model.dto.User;
 
 import com.aoxx.security.domain.User;
 import com.aoxx.security.domain.UserRole;

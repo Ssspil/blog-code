@@ -2,8 +2,8 @@ package com.aoxx.security.service.impl;
 
 import com.aoxx.security.domain.User;
 import com.aoxx.security.exception.EmailExistException;
-import com.aoxx.security.model.dto.CustomUserDetails;
-import com.aoxx.security.model.dto.JoinRequest;
+import com.aoxx.security.model.dto.security.CustomUserDetails;
+import com.aoxx.security.model.dto.User.JoinRequest;
 import com.aoxx.security.repository.UserRepository;
 import com.aoxx.security.service.UserService;
 import lombok.RequiredArgsConstructor;

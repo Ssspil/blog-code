@@ -1,4 +1,4 @@
-package com.aoxx.security.model.dto;
+package com.aoxx.security.model.dto.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
