@@ -1,4 +1,4 @@
-package com.aoxx.security.model.dto.User;
+package com.aoxx.security.model.dto.user;
 
 import lombok.Getter;
 

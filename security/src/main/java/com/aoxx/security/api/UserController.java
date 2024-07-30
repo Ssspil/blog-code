@@ -1,7 +1,7 @@
 package com.aoxx.security.api;
 
 import com.aoxx.security.domain.User;
-import com.aoxx.security.model.dto.User.JoinRequest;
+import com.aoxx.security.model.dto.user.JoinRequest;
 import com.aoxx.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

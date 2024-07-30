@@ -3,7 +3,7 @@ package com.aoxx.security.service.impl;
 import com.aoxx.security.domain.User;
 import com.aoxx.security.exception.EmailExistException;
 import com.aoxx.security.model.dto.security.CustomUserDetails;
-import com.aoxx.security.model.dto.User.JoinRequest;
+import com.aoxx.security.model.dto.user.JoinRequest;
 import com.aoxx.security.repository.UserRepository;
 import com.aoxx.security.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -25,17 +25,14 @@ public class UserServiceImpl implements UserService , UserDetailsService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
-    // [2] security DB 로그인 인증
+    // [로그인 실행 3] security DB 로그인 인증
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User findUser = userRepository.findByEmail(username);
 
         if(findUser == null){
-            log.info("User not found");
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException("해당 유저를 찾을 수 없습니다.");
         }
-
         return new CustomUserDetails(findUser);
     }
 

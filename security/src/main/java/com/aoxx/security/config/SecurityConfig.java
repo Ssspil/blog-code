@@ -1,10 +1,12 @@
 package com.aoxx.security.config;
 
 import com.aoxx.security.domain.UserRole;
-import com.aoxx.security.filter.JwtAuthenticationFilter;
-import com.aoxx.security.jwt.JwtHelper;
+import com.aoxx.security.security.LoginAuthenticationFilter;
+import com.aoxx.security.security.LoginFailHandler;
+import com.aoxx.security.security.LoginSuccessHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,28 +24,43 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    // 시큐리티에게 AuthenticationConfiguration 주입 받기
-    private final AuthenticationConfiguration authenticationConfiguration;
-    private final JwtHelper jwtHelper;
     @Value("${spring.security.cors.allowed-methods}")
     private String[] ALLOW_METHODS;
     @Value("${spring.security.cors.allowed-origins}")
     private String  ALLOW_CROSS_ORIGIN_DOMAIN;
+
+    // 시큐리티에게 AuthenticationConfiguration 주입 받기
+    private final AuthenticationConfiguration authenticationConfiguration;
+    private final LoginSuccessHandler loginSuccessHandler;
+    private final LoginFailHandler loginFailHandler;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
+    // 로그인 인증 필터
+    @Bean
+    public LoginAuthenticationFilter loginAuthenticationFilter() throws Exception {
+        LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter();
+        loginAuthenticationFilter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
+        loginAuthenticationFilter.setFilterProcessesUrl("/api/login");  // 로그인 경로 /login -> /api/login 으로 변경
+        loginAuthenticationFilter.setAuthenticationSuccessHandler(loginSuccessHandler);  // 로그인 성공했을 때 실행시킬 핸들러
+        loginAuthenticationFilter.setAuthenticationFailureHandler(loginFailHandler);      // 로그인 실패했을 때 실행시킬 핸들러
+        return loginAuthenticationFilter;
+    }
+
+    // 시큐리티 설정
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
-        final String[] ALL_URL = new String[]{"/api/user/login", "/api/user/save"};
+        final String[] ALL_URL = new String[]{"/api/login", "/api/user/save"};
         final String[] ADMIN_URL = new String[]{"/api/admin"};
         final String[] ROLES = new String[]{UserRole.SUPER.getCode(), UserRole.MANAGER.getCode(), UserRole.ADMIN.getCode()};
 
@@ -79,9 +96,8 @@ public class SecurityConfig {
                         .requestMatchers(ADMIN_URL).hasAnyRole(ROLES)
                         .anyRequest().authenticated());
 
-        // AuthenticationManager 주입 받아야해서 Bean으로 따로 등록
         http
-                .addFilterAt(new JwtAuthenticationFilter(authenticationManager(authenticationConfiguration), jwtHelper), UsernamePasswordAuthenticationFilter.class);
+                .addFilterAt(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);  // 로그인 필터로 대체
 
         // 세션 설정
         http
