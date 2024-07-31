@@ -31,7 +31,7 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
         if(bCryptPasswordEncoder.matches((String)authentication.getCredentials(), user.getPassword())){
             return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities()); // 인증 된 객체
         } else {
-            throw new LoginAuthenticationException("비밀번호가 다릅니다.");    // 익명 클래스로 예외 던지기
+            throw new LoginAuthenticationException("비밀번호가 다릅니다.");
         }
     }
 

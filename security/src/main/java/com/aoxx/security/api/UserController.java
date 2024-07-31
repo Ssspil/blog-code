@@ -5,6 +5,7 @@ import com.aoxx.security.model.dto.user.JoinRequest;
 import com.aoxx.security.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,6 +27,11 @@ public class UserController {
         URI uri = URI.create(ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/api/user/" + newUser.getId()).toUriString());
         return ResponseEntity.created(uri).body(newUser);
+    }
+
+    @GetMapping("/admin")
+    public ResponseEntity<String> adminPage(){
+        return new ResponseEntity<String>("Admin Page", HttpStatus.OK);
     }
 
 }

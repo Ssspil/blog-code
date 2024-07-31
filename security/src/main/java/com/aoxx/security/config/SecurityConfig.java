@@ -1,6 +1,8 @@
 package com.aoxx.security.config;
 
 import com.aoxx.security.domain.UserRole;
+import com.aoxx.security.jwt.JwtAuthenticationFilter;
+import com.aoxx.security.jwt.JwtHelper;
 import com.aoxx.security.security.LoginAuthenticationFilter;
 import com.aoxx.security.security.LoginFailHandler;
 import com.aoxx.security.security.LoginSuccessHandler;
@@ -58,15 +60,13 @@ public class SecurityConfig {
 
     // 시큐리티 설정
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http, JwtHelper jwtHelper) throws Exception{
 
         final String[] ALL_URL = new String[]{"/api/login", "/api/user/save"};
         final String[] ADMIN_URL = new String[]{"/api/admin"};
         final String[] ROLES = new String[]{UserRole.SUPER.getCode(), UserRole.MANAGER.getCode(), UserRole.ADMIN.getCode()};
 
-        http
-                .cors((cors -> cors.configurationSource(new CorsConfigurationSource() {
-
+        http.cors((cors -> cors.configurationSource(new CorsConfigurationSource() {
                     @Override
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 
@@ -82,34 +82,31 @@ public class SecurityConfig {
                     }
                 })));
         // csrf disable
-        http
-                .csrf((auth) -> auth.disable());
+        http.csrf((auth) -> auth.disable());
 
         // From 로그인 방식 disable
-        http
-                .formLogin((auth) -> auth.disable());
+        http.formLogin((auth) -> auth.disable());
 
         // http basic 인증 방식 disable
-        http
-                .authorizeHttpRequests((auth) -> auth
+        http.authorizeHttpRequests((auth) -> auth
                         .requestMatchers(ALL_URL).permitAll()
-                        .requestMatchers(ADMIN_URL).hasAnyRole(ROLES)
+                        .requestMatchers(ADMIN_URL).hasAnyAuthority(ROLES)
                         .anyRequest().authenticated());
-
+        // 로그인 필터로 대체
         http
-                .addFilterAt(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);  // 로그인 필터로 대체
+                .addFilterBefore(new JwtAuthenticationFilter(jwtHelper), LoginAuthenticationFilter.class)
+                .addFilterAt(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         // 세션 설정
-        http
-                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
+
 
     // 인증 관리자
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception{
         return authenticationConfiguration.getAuthenticationManager();
     }
-
 }

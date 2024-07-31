@@ -1,6 +1,5 @@
 package com.aoxx.security.security;
 
-import com.aoxx.security.domain.User;
 import com.aoxx.security.domain.UserRole;
 import com.aoxx.security.jwt.JwtHelper;
 import com.aoxx.security.model.dto.user.LoginResponse;
@@ -14,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -33,7 +34,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     // [로그인 실행 5] 인증 성공하여 로그인 성공하면 실행하는 핸들러
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        log.info("[여기] : {}", authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String email = userDetails.getUsername();
 
@@ -42,6 +42,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                 .findFirst()
                 .map(GrantedAuthority::getAuthority)
                 .orElse(UserRole.ADMIN.getCode());
+
 
         // 방법 1) HTTP header에 넣어서 전달
         // response.addHeader("Authorizetion", "Bearer " + authToken);

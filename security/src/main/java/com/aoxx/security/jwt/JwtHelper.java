@@ -36,10 +36,10 @@ public class JwtHelper {
         try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC512(secretKey)).build();
             verifier.verify(token);
-        } catch (JWTVerificationException ex){  // 변조 했으면 예외
+        } catch (JWTVerificationException ex){  // 변조 했거나 만료 되었으면 예외
             return false;
         }
-        return false;
+        return true;
     }
 
     // 토큰에서 주체 추출
