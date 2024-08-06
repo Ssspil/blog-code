@@ -17,17 +17,27 @@ import java.util.Date;
 @Component
 public class JwtHelper {
     private static final int ACCESS_TOKEN_VALIDITY = 30 * 60 * 1000;    // 30분
+    private static final int REFRESH_TOKEN_VALIDITY = 24 * 60 * 60 * 1000;  // 1일
 
     @Value("${spring.security.jwt.secret}")
     private String secretKey;
 
     // 토큰 생성
-    public String generateAccessToken(String email, String role){
+    public String generateAccessToken(String subject, String role){
         return JWT.create()
-                .withSubject(email)
+                .withSubject(subject)
                 .withClaim("role", role)
                 .withIssuedAt(new Date(System.currentTimeMillis()))     // 토큰 발급 시간
                 .withExpiresAt(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY))    // 토큰 만료 시간
+                .sign(Algorithm.HMAC512(secretKey));
+    }
+
+    // 토큰 생성
+    public String generateRefreshToken(String subject){
+        return JWT.create()
+                .withSubject(subject)
+                .withIssuedAt(new Date(System.currentTimeMillis()))     // 토큰 발급 시간
+                .withExpiresAt(new Date(System.currentTimeMillis() + REFRESH_TOKEN_VALIDITY))    // 토큰 만료 시간
                 .sign(Algorithm.HMAC512(secretKey));
     }
 

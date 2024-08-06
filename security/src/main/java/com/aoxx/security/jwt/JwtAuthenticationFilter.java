@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             accessToken = optionalCookie.get().getValue();
         }
 
-        // 쿠키가 있어야 실행
+        // 토큰이 없으면 넘겨~
         if(accessToken.isEmpty()){
             filterChain.doFilter(request, response);
             return;
@@ -44,7 +45,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // 토큰 검증
         if(!jwtHelper.validation(accessToken)) {
-            filterChain.doFilter(request, response);
+            
+            // Front 와 협의하여 어떻게 내려줄지 해야한다.
+            response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("유효하지 않은 토큰입니다.");
+
             return;
         }
         // 토큰에서 정보 획득

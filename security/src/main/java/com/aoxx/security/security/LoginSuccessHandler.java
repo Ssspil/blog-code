@@ -13,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -44,31 +42,37 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                 .orElse(UserRole.ADMIN.getCode());
 
 
-        // 방법 1) HTTP header에 넣어서 전달
-        // response.addHeader("Authorizetion", "Bearer " + authToken);
-
-        // 방법 2) 쿠키에 넣어서 전달
+        // 방법 1) 쿠키에 넣어서 전달
         String accessToken = jwtHelper.generateAccessToken(email, role);
-        cookieResponse(response, accessToken);
+        String refreshToken = jwtHelper.generateRefreshToken(email);
+        Cookie accessTokenCookie = createCookie(accessToken, "accessToken");
+        Cookie refreshTokenCookie = createCookie(refreshToken, "refreshToken");
+
+        // 방법 2) HTTP header에 넣어서 전달
+        //response.addHeader("Authorizetion", "Bearer " + accessToken);
 
         // 응답 메시지 작성
         String jsonResponse = new ObjectMapper().writeValueAsString(new LoginResponse(HttpServletResponse.SC_OK, "성공적으로 로그인이 되었습니다."));
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
         response.setStatus(HttpServletResponse.SC_OK);
-
         response.getWriter().write(jsonResponse);
+
+        // 쿠키
+        response.addCookie(accessTokenCookie);
+        response.addCookie(refreshTokenCookie);
     }
 
     // 쿠키 내려주기
-    private void cookieResponse(HttpServletResponse response, String accessToken) {
-        Cookie accessTokenCookie = new Cookie("accessToken", accessToken);
+    private Cookie createCookie(String accessToken, String cookieName) {
+        Cookie accessTokenCookie = new Cookie(cookieName, accessToken);
         long expiration = jwtHelper.extractExpiredAt(accessToken);
         int maxAge = (int) ((expiration - new Date(System.currentTimeMillis()).getTime()) / 1000);
         accessTokenCookie.setMaxAge(maxAge);
         accessTokenCookie.setPath("/");
         accessTokenCookie.setHttpOnly(true);
         accessTokenCookie.setSecure(false);
-        response.addCookie(accessTokenCookie);
+
+        return accessTokenCookie;
     }
 }

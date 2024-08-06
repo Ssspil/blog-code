@@ -5,4 +5,6 @@ import com.aoxx.security.model.dto.user.JoinRequest;
 
 public interface UserService {
     User saveUser(JoinRequest joinRequest);
+
+    User findUserByEmail(String email);
 }
