@@ -1,7 +1,6 @@
 package com.aoxx.security.api;
 
 import com.aoxx.security.domain.User;
-import com.aoxx.security.domain.UserRole;
 import com.aoxx.security.jwt.JwtHelper;
 import com.aoxx.security.model.dto.user.JoinRequest;
 import com.aoxx.security.service.UserService;
@@ -38,7 +37,7 @@ public class UserController {
 
     @GetMapping("/admin")
     public ResponseEntity<String> adminPage(){
-        return new ResponseEntity<String>("Admin Page", HttpStatus.OK);
+        return ResponseEntity.ok().body("Admin Page");
     }
 
     @PostMapping("/token/refresh")
@@ -46,31 +45,32 @@ public class UserController {
                                           @CookieValue(name = "refreshToken", required = false) String refreshToken) {
 
         // 간단 유효성 검사 (1)
-        if(refreshToken == null){
-            return new ResponseEntity<>("refreshToken null", HttpStatus.BAD_REQUEST);
+        if (refreshToken == null) {
+            return ResponseEntity.badRequest().body("refreshToken null");
         }
 
         // 간단 유효성 검사 (2)
-        if(!jwtHelper.validation(refreshToken)){
-            return new ResponseEntity<>("refreshToken expired", HttpStatus.BAD_REQUEST);
+        if (!jwtHelper.validation(refreshToken)) {
+            return ResponseEntity.badRequest().body("refreshToken expired");
         }
 
-        // 유저 인증
-        String email = jwtHelper.extractSubject(refreshToken);
-        User user = userService.findUserByEmail(email);
+        try {
+            String accessToken = userService.reissue(refreshToken);
+            Cookie accessTokenCookie = createCookie(accessToken);
 
-        // accesToken 새롭게 생성
-        String accessToken = jwtHelper.generateAccessToken(email, user.getRole().getCode());
-        Cookie accessTokenCookie = createCookie(accessToken, "accessToken");
+            // 쿠키 추가
+            response.addCookie(accessTokenCookie);
 
-        // 쿠키 추가
-        response.addCookie(accessTokenCookie);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
 
-        return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
-    private Cookie createCookie(String accessToken, String cookieName) {
-        Cookie accessTokenCookie = new Cookie(cookieName, accessToken);
+    private Cookie createCookie(String accessToken) {
+        Cookie accessTokenCookie = new Cookie("accessToken", accessToken);
         long expiration = jwtHelper.extractExpiredAt(accessToken);
         int maxAge = (int) ((expiration - new Date(System.currentTimeMillis()).getTime()) / 1000);
         accessTokenCookie.setMaxAge(maxAge);

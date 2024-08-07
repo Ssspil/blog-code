@@ -7,4 +7,6 @@ public interface UserService {
     User saveUser(JoinRequest joinRequest);
 
     User findUserByEmail(String email);
+
+    String reissue(String refreshToken);
 }

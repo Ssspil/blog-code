@@ -3,6 +3,7 @@ package com.aoxx.security.security;
 import com.aoxx.security.domain.UserRole;
 import com.aoxx.security.jwt.JwtHelper;
 import com.aoxx.security.model.dto.user.LoginResponse;
+import com.aoxx.security.service.impl.RedisService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Date;
 
@@ -28,6 +30,7 @@ import java.util.Date;
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
     private final JwtHelper jwtHelper;
+    private final RedisService redisService;
 
     // [로그인 실행 5] 인증 성공하여 로그인 성공하면 실행하는 핸들러
     @Override
@@ -41,10 +44,13 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
                 .map(GrantedAuthority::getAuthority)
                 .orElse(UserRole.ADMIN.getCode());
 
-
-        // 방법 1) 쿠키에 넣어서 전달
         String accessToken = jwtHelper.generateAccessToken(email, role);
         String refreshToken = jwtHelper.generateRefreshToken(email);
+
+        // Redis에 refreshToken 유효시간만큼 캐시
+        redisService.save(email, refreshToken, Duration.ofMillis(jwtHelper.extractExpiredAt(refreshToken)));
+
+        // 방법 1) 쿠키에 넣어서 전달
         Cookie accessTokenCookie = createCookie(accessToken, "accessToken");
         Cookie refreshTokenCookie = createCookie(refreshToken, "refreshToken");
 
