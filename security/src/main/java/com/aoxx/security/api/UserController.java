@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,11 +36,28 @@ public class UserController {
         return ResponseEntity.created(uri).body(newUser);
     }
 
+    @DeleteMapping("/user/logout")
+    public ResponseEntity<String> logout(HttpServletResponse response){
+        // 시큐리티 context 비우기
+        SecurityContextHolder.clearContext();
+
+        // 쿠키 다 삭제
+        Cookie accessToken = deleteCookie("accessToken");
+        Cookie refreshToken = deleteCookie("refreshToken");
+
+        response.addCookie(accessToken);
+        response.addCookie(refreshToken);
+
+        return ResponseEntity.ok().body("Logout success");
+    }
+
+    // 관리자 페이지
     @GetMapping("/admin")
     public ResponseEntity<String> adminPage(){
         return ResponseEntity.ok().body("Admin Page");
     }
 
+    // 토큰 재발급
     @PostMapping("/token/refresh")
     public ResponseEntity<String> reissue(HttpServletRequest request, HttpServletResponse response,
                                           @CookieValue(name = "refreshToken", required = false) String refreshToken) {
@@ -67,6 +85,13 @@ public class UserController {
         }
 
 
+    }
+
+    private Cookie deleteCookie(String cookieName){
+        Cookie cookie = new Cookie(cookieName, null);
+        cookie.setMaxAge(0);
+        cookie.setPath("/");
+        return cookie;
     }
 
     private Cookie createCookie(String accessToken) {
