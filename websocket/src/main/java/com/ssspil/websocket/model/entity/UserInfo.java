@@ -1,12 +1,14 @@
 package com.ssspil.websocket.model.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
-import org.hibernate.validator.constraints.Length;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @Table(name = "USER_INFO")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class UserInfo {
 
     @Id

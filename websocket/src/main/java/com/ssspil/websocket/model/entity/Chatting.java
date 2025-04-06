@@ -49,6 +49,4 @@ public class Chatting {
 
     @Column(name = "UPDATE_AT")
     private LocalDateTime updateAt;     // 채팅 수정 시각
-
-
 }

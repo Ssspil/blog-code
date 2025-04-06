@@ -4,7 +4,6 @@ import com.ssspil.websocket.model.common.EnterStatus;
 import com.ssspil.websocket.model.entity.embedded.ParticipantId;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Table(name = "PARTICIPANT")
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Participant {
 
