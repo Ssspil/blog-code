@@ -1,0 +1,36 @@
+
+# ===============================
+# Server Property
+# ===============================
+spring:
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    username: "postgres"
+    password: "0000"
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    database: postgresql
+    hibernate:
+      ddl-auto: create
+  security:
+    jwt:
+      secret: "My secret key"
+    cors:
+      allowed-origins: ${CORS_ALLOWED_ORIGINS}
+      allowed-methods: ${CORS_ALLOWED_METHODS}
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: "1111"
+
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        orm:
+          jdbc:
+            bind: TRACE
