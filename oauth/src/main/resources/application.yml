@@ -12,7 +12,7 @@ spring:
     show-sql: true
     database: postgresql
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
   security:
     jwt:
       secret: "My secret key"
@@ -28,6 +28,7 @@ spring:
 
 logging:
   level:
+    com.aoxx.oauth: DEBUG  # 특정 패키지에만 DEBUG 주고 싶으면 이렇게
     org:
       hibernate:
         SQL: DEBUG
