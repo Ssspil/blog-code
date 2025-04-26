@@ -18,7 +18,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.io.IOException;
 
-
+/**********************************
+ * 스프링 시큐리티 로그인 시도
+ *********************************/
 @Slf4j
 @RequiredArgsConstructor
 public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -52,7 +54,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
             return super.getAuthenticationManager().authenticate(unauthenticated);
 
         } catch (IOException e) {
-            throw new AuthenticationServiceException("잘못된 Key 이름으로 요청하였습니다.", e);
+            throw new AuthenticationServiceException("잘못된 Key 이름으로 요청하였습니다.", e);   // TODO 커스텀 예외로 변경
         }
     }
 
