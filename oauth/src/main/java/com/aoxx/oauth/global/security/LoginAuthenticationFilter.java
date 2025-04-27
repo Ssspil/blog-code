@@ -43,7 +43,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
         }
 
         try {
-            log.debug("=============== 로그인 시도 ===============");
+            log.debug("Security Login =====>> 로그인 시도");
             // 데이터 바인딩 (getInputStream은 1번 밖에 못 읽음)
             LoginRequest loginRequest = objectMapper.readValue(request.getInputStream(), LoginRequest.class);
 
@@ -59,18 +59,20 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
     }
 
     /********************
-     * security 인증 성공 시 실행하는 메서드
+     * security 인증 성공 시 실행하는 메서드 (굳이 구현x) : LoginSucessHandler로 진행
      ***************/
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+        log.info("Security Login =====>> 인증 성공");
         super.successfulAuthentication(request, response, chain, authResult);
     }
 
     /********************
-     * security 인증 실패 시 실행하는 메서드
+     * security 인증 실패 시 실행하는 메서드 (굳이 구현x) : LoginFailHandler로 진행
      ***************/
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        log.info("Security Login =====>> 인증 실패");
         super.unsuccessfulAuthentication(request, response, failed);
     }
 }

@@ -1,6 +1,8 @@
 package com.aoxx.oauth.global.config;
 
 import com.aoxx.oauth.global.security.LoginAuthenticationFilter;
+import com.aoxx.oauth.global.security.LoginFailHandler;
+import com.aoxx.oauth.global.security.LoginSuccessHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +40,9 @@ public class SecurityConfig {
     // 시큐리티에게 AuthenticationConfiguration 주입 받기
     private final AuthenticationConfiguration authenticationConfiguration;
 
+    private final LoginSuccessHandler loginSuccessHandler;
+    private final LoginFailHandler loginFailHandler;
+
 
 
     // 암호화를 위해
@@ -52,8 +57,8 @@ public class SecurityConfig {
         LoginAuthenticationFilter loginAuthenticationFilter = new LoginAuthenticationFilter(objectMapper);
         loginAuthenticationFilter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
         loginAuthenticationFilter.setFilterProcessesUrl("/api/login");  // 로그인 경로 /login -> /api/login 으로 변경
-//        loginAuthenticationFilter.setAuthenticationSuccessHandler(loginSuccessHandler);  // 로그인 성공했을 때 실행시킬 핸들러
-//        loginAuthenticationFilter.setAuthenticationFailureHandler(loginFailHandler);      // 로그인 실패했을 때 실행시킬 핸들러
+        loginAuthenticationFilter.setAuthenticationSuccessHandler(loginSuccessHandler);  // 로그인 성공했을 때 실행시킬 핸들러
+        loginAuthenticationFilter.setAuthenticationFailureHandler(loginFailHandler);      // 로그인 실패했을 때 실행시킬 핸들러
         return loginAuthenticationFilter;
     }
 
@@ -90,9 +95,6 @@ public class SecurityConfig {
 
         http
                 .addFilterAt(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);  // 내가 만든 로그인 필터로 대체(교체)
-
-
-
 
         return http.build();
     }
