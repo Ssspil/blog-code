@@ -18,22 +18,25 @@ import java.util.Optional;
  *********************************/
 @Slf4j
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    // 사용자 정보 조회
+    /**
+     *  사용자 정보 조회
+     * @param phoneNumber 사용자 폰번호
+     * @return
+     * @throws UsernameNotFoundException    사용자 못찾았을 때
+     */
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
         log.debug("Security Login =====>> 사용자 정보 조회");
 
-        Optional<User> optionalUser = userRepository.findByPhoneNumber(phoneNumber);    // 삭제X, 미사용X, 약관 동의O 한 유저로 조건 조회
+        User user = userRepository.findByPhoneNumber(phoneNumber)
+                .orElseThrow(() -> new UsernameNotFoundException("해당 유저를 찾을 수 없습니다."));
 
-        if(optionalUser.isEmpty()){
-            throw new UsernameNotFoundException("해당 유저를 찾을 수 없습니다.");   // TODO 커스텀 예외로 변경
-        }
-        return new CustomUserDetails(optionalUser.get());
+        return new CustomUserDetails(user);
     }
 }

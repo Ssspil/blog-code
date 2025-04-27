@@ -25,6 +25,12 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+     * 사용자 인증 (만약 여러 요구사항이 있으면 녹여낼 것)
+     * @param authentication
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         log.debug("Security Login =====>> 사용자 인증 검증 시작");
@@ -34,12 +40,18 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
         // 비밀번호 일치하는지 체크
         if(bCryptPasswordEncoder.matches(String.valueOf(authentication.getCredentials()), String.valueOf(user.getPassword()))) {
             return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities()); // 인증 된 객체
+
         } else {
+            log.error("Security Login =====>> 비밀번호 불일치");
             throw new AuthenticationServiceException("비밀번호가 다릅니다.");    // TODO 커스텀 예외로 변경
         }
     }
 
-    // 해당 인증 객체 처리할 수 있는가 체크
+    /**
+     * 해당 인증 객체가 지원 가능한지 체크
+     * @param authentication 인증 객체
+     * @return 지원 여부
+     */
     @Override
     public boolean supports(Class<?> authentication) {
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);

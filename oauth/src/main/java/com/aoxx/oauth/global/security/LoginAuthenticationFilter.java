@@ -32,9 +32,13 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
         super.setAuthenticationManager(authenticationManager);
     }
 
-    /********************
+    /**
      * 로그인 시도
-     ***************/
+     * @param request
+     * @param response
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         // JSON 타입으로 받아야함
@@ -58,18 +62,29 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
         }
     }
 
-    /********************
+    /**
      * security 인증 성공 시 실행하는 메서드 (굳이 구현x) : LoginSucessHandler로 진행
-     ***************/
+     * @param request
+     * @param response
+     * @param chain
+     * @param authResult
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         log.info("Security Login =====>> 인증 성공");
         super.successfulAuthentication(request, response, chain, authResult);
     }
 
-    /********************
+    /**
      * security 인증 실패 시 실행하는 메서드 (굳이 구현x) : LoginFailHandler로 진행
-     ***************/
+     * @param request
+     * @param response
+     * @param failed
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         log.info("Security Login =====>> 인증 실패");

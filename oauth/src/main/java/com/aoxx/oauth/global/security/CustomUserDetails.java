@@ -9,6 +9,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 
+
+/**********************************
+ * 스프링 시큐리티 사용자 객체
+ *********************************/
 @Slf4j
 @RequiredArgsConstructor
 public class CustomUserDetails implements UserDetails {
