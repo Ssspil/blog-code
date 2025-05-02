@@ -27,6 +27,7 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
 
     /**
      * 사용자 인증 (만약 여러 요구사항이 있으면 녹여낼 것)
+     * ex) IP 기반 인증, OTP 인증, 계정 잠금, 계정 만료 등
      * @param authentication
      * @return
      * @throws AuthenticationException
@@ -38,7 +39,10 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
         UserDetails user = userDetailsService.loadUserByUsername(String.valueOf(authentication.getPrincipal()));
 
         // 비밀번호 일치하는지 체크
-        if(bCryptPasswordEncoder.matches(String.valueOf(authentication.getCredentials()), String.valueOf(user.getPassword()))) {
+        boolean isPasswordTrue = bCryptPasswordEncoder.matches(String.valueOf(authentication.getCredentials()), String.valueOf(user.getPassword()));
+        boolean isUsed = true;  // TODO 사용 중인 유저인가 체크
+
+        if(isPasswordTrue && isUsed) {
             return new UsernamePasswordAuthenticationToken(user, "", user.getAuthorities()); // 인증 된 객체
 
         } else {

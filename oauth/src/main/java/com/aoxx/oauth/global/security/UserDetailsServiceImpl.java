@@ -26,15 +26,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     /**
      *  사용자 정보 조회
-     * @param phoneNumber 사용자 폰번호
+     * @param email 사용자 이메일
      * @return
      * @throws UsernameNotFoundException    사용자 못찾았을 때
      */
     @Override
-    public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         log.debug("Security Login =====>> 사용자 정보 조회");
 
-        User user = userRepository.findByPhoneNumber(phoneNumber)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("해당 유저를 찾을 수 없습니다."));
 
         return new CustomUserDetails(user);

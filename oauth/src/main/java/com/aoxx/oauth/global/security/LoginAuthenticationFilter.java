@@ -52,7 +52,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
             LoginRequest loginRequest = objectMapper.readValue(request.getInputStream(), LoginRequest.class);
 
             // 아직 인증되기전의 인증 객체 생성
-            UsernamePasswordAuthenticationToken unauthenticated = new UsernamePasswordAuthenticationToken(loginRequest.getPhoneNumber() , loginRequest.getPassword());
+            UsernamePasswordAuthenticationToken unauthenticated = new UsernamePasswordAuthenticationToken(loginRequest.getEmail() , loginRequest.getPassword());
 
             // token에 인증되지 않은 정보 검증 위해 AuthenticationManager로 전달
             return super.getAuthenticationManager().authenticate(unauthenticated);
