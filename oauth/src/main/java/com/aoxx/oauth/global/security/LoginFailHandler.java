@@ -1,6 +1,6 @@
 package com.aoxx.oauth.global.security;
 
-import com.aoxx.oauth.domain.user.dto.LoginResponse;
+import com.aoxx.oauth.domain.user.dto.LoginFailResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,7 +43,7 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         // 응답 메시지 작성
-        LoginResponse loginResponse = new LoginResponse(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
+        LoginFailResponse loginResponse = LoginFailResponse.create(HttpServletResponse.SC_UNAUTHORIZED, exception.getMessage());
 
         // 응답
         response.getWriter().write(objectMapper.writeValueAsString(loginResponse));

@@ -38,6 +38,10 @@ public class CustomUserDetails implements UserDetails {
         return authorities;
     }
 
+    public String getRole() {
+        return user.getAuth().getCode();
+    }
+
     // 계정이 만료되지 않는지 (true 여야 통과)
     @Override
     public boolean isAccountNonExpired() {

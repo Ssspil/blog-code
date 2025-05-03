@@ -24,4 +24,9 @@ public class User {
     @Column(name = "USER_AUTH")
     private UserAuth auth;
 
+    public User(String email, String password, UserAuth auth) {
+        this.email = email;
+        this.password = password;
+        this.auth = auth;
+    }
 }
