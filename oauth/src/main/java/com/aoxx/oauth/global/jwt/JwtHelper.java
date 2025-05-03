@@ -15,8 +15,8 @@ import java.util.Date;
 @Component
 public class JwtHelper {
 
-    private static final int ACCESS_TOKEN_VALIDITY = 30 * 60 * 1000;    // 30분
-    private static final int REFRESH_TOKEN_VALIDITY = 24 * 60 * 60 * 1000;  // 1일
+    private static final long ACCESS_TOKEN_VALIDITY = 1000 * 60 * 30;    // 30분
+    private static final long REFRESH_TOKEN_VALIDITY = 1000 * 60 * 60 * 24;  // 1일
 
     @Value("${spring.security.jwt.secret}")
     private String secretKey;
