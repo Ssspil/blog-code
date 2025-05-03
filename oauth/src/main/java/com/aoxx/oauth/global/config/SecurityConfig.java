@@ -30,10 +30,10 @@ import java.util.List;
 public class SecurityConfig {
 
     @Value("${spring.security.cors.allowed-origins}")
-    private List<String> allowedOrigins;
+    private List<String> ALLOW_CROSS_ORIGIN_DOMAIN;
 
     @Value("${spring.security.cors.allowed-methods}")
-    private List<String> allowedMethods;
+    private List<String> ALLOW_METHODS;
 
     private final ObjectMapper objectMapper;
 
@@ -66,7 +66,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        final String[] ALL_URL = new String[]{"/api/**", "/login"};
+        final String[] ALL_URL = new String[]{"/api/**"};
 
         // CORS 설정
         http.cors((cors -> cors.configurationSource(new CorsConfigurationSource() {
@@ -74,8 +74,8 @@ public class SecurityConfig {
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration configuration = new CorsConfiguration();
 
-                configuration.setAllowedOrigins(allowedOrigins);            // Cors 도메인 (Credentials 때문에 필수)
-                configuration.setAllowedMethods(allowedMethods);            // HTTP 메서드
+                configuration.setAllowedOrigins(ALLOW_CROSS_ORIGIN_DOMAIN);            // Cors 도메인 (Credentials 때문에 필수)
+                configuration.setAllowedMethods(ALLOW_METHODS);            // HTTP 메서드
                 configuration.setAllowedHeaders(Collections.singletonList("*"));    // 헤더 값 다 허용
                 configuration.setAllowCredentials(true);                    // 인증 관련 정보 (JWT, 세션 쿠키 받기 위함)
                 configuration.setMaxAge(3600L);                         // 브라우저의 preflight 요청 캐싱 시간
