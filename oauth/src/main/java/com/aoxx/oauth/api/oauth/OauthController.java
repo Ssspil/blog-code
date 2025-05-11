@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/oauth")
 public class OauthController {
 
     @GetMapping("/kakao/login")
     public String kakaoLogin() {
-        log.info("들어왔나?");
+        log.debug("KaKao Login =====>> 로그인 시도");
+
         String authorizationCode = "https://kauth.kakao.com/oauth/authorize?";
         authorizationCode += "client_id=fc419b64f9cb8449d8c68a2bf939e193&";
         authorizationCode += "redirect_uri=http://192.168.35.39:8080/api/auth&";
@@ -21,7 +22,6 @@ public class OauthController {
 
         return authorizationCode;
     }
-
 
     @GetMapping
     public String kakaoLogin2(@RequestParam String code) {
