@@ -11,6 +11,9 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    // Application 있는 곳에 h2 db 세팅
+    implementation 'com.h2database:h2'
+
     //    testImplementation platform('org.junit:junit-bom:5.10.0')
     //    testImplementation 'org.junit.jupiter:junit-jupiter'
 }
