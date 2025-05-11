@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.4.5'
-	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.springframework.boot' version '3.4.5' apply false
+	id 'io.spring.dependency-management' version '1.1.7' apply false
 }
 
 group = 'com.aoxx'
@@ -13,16 +13,28 @@ java {
 	}
 }
 
-repositories {
-	mavenCentral()
+allprojects {
+	repositories {
+		mavenCentral()
+	}
 }
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+// 모든 모듈 공통
+subprojects {
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+
+	dependencies {
+		// 모든 모듈에서 사용할 공통 의존성
+		implementation 'org.springframework.boot:spring-boot-starter' // Spring Boot 기본 스타터
+		compileOnly 'org.projectlombok:lombok'  // Lombok
+		annotationProcessor 'org.projectlombok:lombok' // Lombok 어노테이션 프로세서
+
+		testImplementation 'org.springframework.boot:spring-boot-starter-test' // Spring Boot 테스트
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform()  // JUnit 5를 사용할 수 있도록 설정
+	}
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}

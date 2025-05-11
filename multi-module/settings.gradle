@@ -1,1 +1,6 @@
 rootProject.name = 'multi-module'
+include 'api'
+include 'common'
+include 'external'
+include 'domain'
+
