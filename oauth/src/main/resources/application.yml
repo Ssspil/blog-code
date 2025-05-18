@@ -25,6 +25,17 @@ spring:
       port: 6379
       password: "1111"
 
+kakao:
+  auth:
+    url: https://kauth.kakao.com/oauth/authorize
+    client:
+      id: ${KAKAO_CLIENT_ID}  # 카카오 디벨로퍼의 REST API 키
+  token:
+    url: https://kauth.kakao.com/oauth/token
+  redirect:
+    url: http://192.168.35.39:8080/api/oauth/kakao
+
+
 
 logging:
   level:

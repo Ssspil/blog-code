@@ -8,23 +8,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/oauth")
 public class OauthController {
 
+    private final KakaoService kakaoService;
+
+    /**
+     * 카카오 로그인 하기전 인증 코드 요청
+     * @return
+     */
     @GetMapping("/kakao/login")
-    public String kakaoLogin() {
-        log.debug("KaKao Login =====>> 로그인 시도");
-
-        String authorizationCode = "https://kauth.kakao.com/oauth/authorize?";
-        authorizationCode += "client_id=fc419b64f9cb8449d8c68a2bf939e193&";
-        authorizationCode += "redirect_uri=http://192.168.35.39:8080/api/auth&";
-        authorizationCode += "response_type=code";
-
-        return authorizationCode;
+    public String kakaoLoginRequest() {
+        log.info("KaKao Login =====>> 로그인 시도");
+        return kakaoService.getAuthorizationCode();
     }
 
-    @GetMapping
-    public String kakaoLogin2(@RequestParam String code) {
+    /**
+     * 카카오 로그인
+     * @param code
+     * @return
+     */
+    @GetMapping("/kakao")
+    public String kakaoLogin(@RequestParam String code) {
         log.info("코드 : {}", code);
 
 
