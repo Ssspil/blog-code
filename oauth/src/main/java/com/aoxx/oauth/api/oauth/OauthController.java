@@ -1,5 +1,10 @@
 package com.aoxx.oauth.api.oauth;
 
+import com.aoxx.oauth.domain.oauth.service.KakaoService;
+import com.aoxx.oauth.domain.user.dto.LoginDto;
+import com.aoxx.oauth.domain.user.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OauthController {
 
     private final KakaoService kakaoService;
+    private final UserService userService;
 
     /**
      * 카카오 로그인 하기전 인증 코드 요청
@@ -30,11 +36,10 @@ public class OauthController {
      * @return
      */
     @GetMapping("/kakao")
-    public String kakaoLogin(@RequestParam String code) {
-        log.info("코드 : {}", code);
+    public LoginDto kakaoLogin(@RequestParam String code, HttpServletResponse response) {
+        log.info("KaKao AuthCode callback =====>> {}", code);
 
-
-        return "test";
+        return userService.login(code);
     }
 }
 

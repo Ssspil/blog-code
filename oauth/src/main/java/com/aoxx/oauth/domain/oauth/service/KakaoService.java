@@ -1,13 +1,17 @@
-package com.aoxx.oauth.domain.oauth;
+package com.aoxx.oauth.domain.oauth.service;
 
+import com.aoxx.oauth.domain.oauth.dto.KakaoTokenResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class KakaoService {
@@ -40,7 +44,12 @@ public class KakaoService {
                 .toUriString();
     }
 
-    public String getAccessToken(String authorizeCode) {
+    /**
+     * 인가 코드로 토큰 받기 및 사용자 정보 조회
+     * @param authorizeCode
+     * @return
+     */
+    public KakaoTokenResponse getAuthToken(String authorizeCode) {
         return webClient.post()
                 .uri(KAKAO_TOKEN_URL)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
@@ -49,8 +58,7 @@ public class KakaoService {
                         .with("redirect_uri", KAKAO_REDIRECT_URL)
                         .with("code", authorizeCode))
                 .retrieve()
-                .bodyToMono(String.class)
-//                .map(KakaoTokenResponse::getAccessToken)
-                .block(); // 블로킹 방식 (필요 시 reactive하게 리팩토링 가능)
+                .bodyToMono(KakaoTokenResponse.class)
+                .block();// 블로킹 방식 (필요 시 reactive하게 리팩토링 가능)
     }
 }
