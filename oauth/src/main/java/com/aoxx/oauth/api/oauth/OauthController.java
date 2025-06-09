@@ -40,7 +40,6 @@ public class OauthController {
     public KakaoTokenResponse kakaoLoginRedirect(@RequestParam String code, HttpServletResponse response) throws IOException {
         log.info("KaKao AuthCode callback =====>> {}", code);
 
-        return userService.login(code);
         KakaoTokenResponse res = userService.login(code);
 
 
