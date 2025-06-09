@@ -1,9 +1,10 @@
 package com.aoxx.oauth.api.oauth;
 
+import com.aoxx.oauth.domain.oauth.dto.KakaoTokenResponse;
 import com.aoxx.oauth.domain.oauth.service.KakaoService;
-import com.aoxx.oauth.domain.user.dto.LoginDto;
 import com.aoxx.oauth.domain.user.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,25 +22,30 @@ public class OauthController {
     private final UserService userService;
 
     /**
-     * 카카오 로그인 하기전 인증 코드 요청
+     * 카카오 로그인 하기전 인증 URL 요청
      * @return
      */
-    @GetMapping("/kakao/login")
+    @GetMapping("/kakao/authorize")
     public String kakaoLoginRequest() {
-        log.info("KaKao Login =====>> 로그인 시도");
-        return kakaoService.getAuthorizationCode();
+        log.info("KaKao Login =====>> 인증 URL 가져오기");
+        return kakaoService.getAuthUrl();
     }
 
     /**
-     * 카카오 로그인
+     * 카카오 로그인 콜백
      * @param code
      * @return
      */
-    @GetMapping("/kakao")
-    public LoginDto kakaoLogin(@RequestParam String code, HttpServletResponse response) {
+    @GetMapping("/kakao/redirect")
+    public KakaoTokenResponse kakaoLoginRedirect(@RequestParam String code, HttpServletResponse response) throws IOException {
         log.info("KaKao AuthCode callback =====>> {}", code);
 
         return userService.login(code);
+        KakaoTokenResponse res = userService.login(code);
+
+
+//        response.sendRedirect(redirectUrl);
+        return res;
     }
 }
 
