@@ -37,14 +37,12 @@ public class OauthController {
      * @return
      */
     @GetMapping("/kakao/redirect")
-    public KakaoUserInfoResponse kakaoLoginRedirect(@RequestParam String code, HttpServletResponse response) throws IOException {
+    public void kakaoLoginRedirect(@RequestParam String code, HttpServletResponse response) throws IOException {
         log.info("KaKao AuthCode callback =====>> {}", code);
 
         KakaoUserInfoResponse res = userService.login(code);
 
-
-//        response.sendRedirect(redirectUrl);
-        return res;
+        response.sendRedirect("http://localhost:5173/callback?res=" + res);
     }
 }
 

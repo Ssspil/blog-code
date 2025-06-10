@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -61,8 +60,6 @@ public class KakaoService {
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .body(KakaoTokenResponse.class);
-
-        log.info("이게 뭐죠? : {}", token);
 
         return token;
     }
