@@ -1,10 +1,10 @@
 package com.aoxx.oauth.domain.user.service;
 
 import com.aoxx.oauth.domain.oauth.dto.KakaoTokenResponse;
+import com.aoxx.oauth.domain.oauth.dto.KakaoUserInfoResponse;
 import com.aoxx.oauth.domain.oauth.service.KakaoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -14,14 +14,13 @@ public class UserService {
 
     private final KakaoService kakaoService;
 
-    public KakaoTokenResponse login(String code) {
+    public KakaoUserInfoResponse login(String code) {
         // 1. 카카오로부터 토큰 응답 받기
         KakaoTokenResponse kakaoToken = kakaoService.getTokenFromKakao(code);
-        log.info("토큰 : {}", kakaoToken);
 
-        ResponseEntity<?> entity = kakaoService.getUserProfile(kakaoToken.getAccessToken());
+        KakaoUserInfoResponse res = kakaoService.getUserProfile(kakaoToken.getAccessToken());
 
-        return kakaoToken;
+        return res;
         // 2. 사용자 정보 조회
 //        String userResponse = kakaoService.getUserInfo(tokenResponse.getAccessToken());
 //        log.info("유저 정보 : {}", userResponse);

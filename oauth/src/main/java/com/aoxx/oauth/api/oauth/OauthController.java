@@ -1,6 +1,6 @@
 package com.aoxx.oauth.api.oauth;
 
-import com.aoxx.oauth.domain.oauth.dto.KakaoTokenResponse;
+import com.aoxx.oauth.domain.oauth.dto.KakaoUserInfoResponse;
 import com.aoxx.oauth.domain.oauth.service.KakaoService;
 import com.aoxx.oauth.domain.user.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,10 +37,10 @@ public class OauthController {
      * @return
      */
     @GetMapping("/kakao/redirect")
-    public KakaoTokenResponse kakaoLoginRedirect(@RequestParam String code, HttpServletResponse response) throws IOException {
+    public KakaoUserInfoResponse kakaoLoginRedirect(@RequestParam String code, HttpServletResponse response) throws IOException {
         log.info("KaKao AuthCode callback =====>> {}", code);
 
-        KakaoTokenResponse res = userService.login(code);
+        KakaoUserInfoResponse res = userService.login(code);
 
 
 //        response.sendRedirect(redirectUrl);

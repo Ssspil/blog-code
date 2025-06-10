@@ -1,6 +1,7 @@
 package com.aoxx.oauth.domain.oauth.service;
 
 import com.aoxx.oauth.domain.oauth.dto.KakaoTokenResponse;
+import com.aoxx.oauth.domain.oauth.dto.KakaoUserInfoResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -71,8 +72,8 @@ public class KakaoService {
      * @param kakaoToken
      * @return
      */
-    public ResponseEntity<?> getUserProfile(String kakaoToken) {
-        String res = restClient.get()
+    public KakaoUserInfoResponse getUserProfile(String kakaoToken) {
+        KakaoUserInfoResponse userInfo = restClient.get()
                 .uri("https://kapi.kakao.com/v2/user/me")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .headers((header) -> {
@@ -80,13 +81,9 @@ public class KakaoService {
                 })
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(KakaoTokenResponse.class)
-                .block();// 블로킹 방식 (필요 시 reactive하게 리팩토링 가능)
-    }
-}
-                .body(String.class);
+                .body(KakaoUserInfoResponse.class);
 
-        return ResponseEntity.ok(res);
+        return userInfo;
 
     }
 
