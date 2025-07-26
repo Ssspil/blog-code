@@ -1,28 +1,28 @@
 plugins {
+	// Root는 Java만 선언하고 Spring Boot는 하위모듈에 세팅
+	// Root는 빌드 컨트롤러 역할만 하므로, 실행/패키징 목적X
 	id 'java'
-	id 'org.springframework.boot' version '3.5.4'
-	id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'com.jspp'
-version = '0.0.1-SNAPSHOT'
+allprojects {
+	group = 'com.jspp'
+	version = '0.0.1-SNAPSHOT'	// 프로젝트 버전 지정
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
+	repositories {
+		mavenCentral()	// 라이브러리 저장소 지정
 	}
 }
 
-repositories {
-	mavenCentral()
-}
+subprojects {
+	apply plugin: 'java'
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-}
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(17)
+		}
+	}
 
-tasks.named('test') {
-	useJUnitPlatform()
+	tasks.withType(JavaCompile) {
+		options.encoding = 'UTF-8'
+	}
 }
