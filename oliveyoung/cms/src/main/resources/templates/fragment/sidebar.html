@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div th:fragment="sidebarFragment" class="lnb_inner sidebar-body">
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <!-- Sidebar header -->
+      <div class="sidebar-header">
+        <a href="index.html" class="logo">
+          <img th:src="@{/img/logo.svg}" alt="Logo" id="main-logo">
+          Mimity Admin
+        </a>
+        <a href="#" class="nav-link nav-icon rounded-circle ml-auto" data-toggle="sidebar">
+          <i class="material-icons">close</i>
+        </a>
+      </div>
+      <!-- /Sidebar header -->
+
+      <!-- Sidebar body -->
+      <div class="sidebar-body">
+        <ul class="nav nav-sub">
+          <li class="nav-label">DASHBOARD</li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="index.html"><i data-feather="globe"></i>Website Analytics</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon active" href="index2.html"><i data-feather="shopping-bag"></i>Sales
+              Monitoring</a>
+          </li>
+          <li class="nav-label">APPLICATION</li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="mail.html"><i class="material-icons">mail_outline</i>Mail<span
+                    class="badge badge-warning ml-auto badge-pill">3</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="file-manager.html"><i class="material-icons">folder_open</i>File
+              Manager</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="chat.html"><i data-feather="message-square"></i>Chat</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="calendar.html"><i data-feather="calendar"></i>Calendar</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="todo-list.html"><i data-feather="check-square"></i>Todo List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="images.html"><i data-feather="image"></i>Images</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="pricing.html"><i class="material-icons">list_alt</i>Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="timeline.html"><i data-feather="clock"></i>Timeline</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="invoice.html"><i class="fa fa-file-invoice-dollar"></i>Invoice</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="forum.html"><i class="fa fa-comments"></i>Forum</a>
+          </li>
+          <li class="nav-label">UI DESIGN</li>
+          <li class="nav-item">
+            <a class="nav-link has-icon dropdown-toggle" href="#"><i data-feather="pie-chart"></i>Charts</a>
+            <ul>
+              <li><a href="chart-line.html">Line Charts</a></li>
+              <li><a href="chart-bar.html">Bar Charts</a></li>
+              <li><a href="chart-radar.html">Radar Charts</a></li>
+              <li><a href="chart-doughnutpie.html">Doughnut and Pie</a></li>
+              <li><a href="sparkline.html">Sparkline</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon dropdown-toggle" href="#"><i data-feather="box"></i>UI Elements</a>
+            <ul>
+              <li><a href="accordion.html">Accordion</a></li>
+              <li><a href="alerts.html">Alerts</a></li>
+              <li><a href="buttons.html">Buttons</a></li>
+              <li><a href="cards.html">Cards</a></li>
+              <li><a href="carousel.html">Carousel</a></li>
+              <li><a href="collapse.html">Collapse</a></li>
+              <li><a href="dropdowns.html">Dropdowns</a></li>
+              <li><a href="lists.html">List Group</a></li>
+              <li><a href="media-object.html">Media Object</a></li>
+              <li><a href="modal.html">Modal</a></li>
+              <li><a href="navigation.html">Navigation</a></li>
+              <li><a href="notifications.html">Notifications</a></li>
+              <li><a href="pagination.html">Pagination</a></li>
+              <li><a href="popovers.html">Popovers</a></li>
+              <li><a href="progress.html">Progress Bars</a></li>
+              <li><a href="sortable.html">Sortable List</a></li>
+              <li><a href="tooltips.html">Tooltips</a></li>
+              <li><a href="typography.html">Typography</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon dropdown-toggle" href="#"><i
+                    class="material-icons">table_chart</i>Tables</a>
+            <ul>
+              <li><a href="table-basic.html">Table Basic</a></li>
+              <li><a href="table-advanced.html">Table Advanced</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon dropdown-toggle" href="#"><i class="material-icons">notes</i>Forms</a>
+            <ul>
+              <li><a href="form-elements.html">Form Elements</a></li>
+              <li><a href="input-group.html">Input Group</a></li>
+              <li><a href="input-masks.html">Input Masks</a></li>
+              <li><a href="date-picker.html">Date Picker</a></li>
+              <li><a href="color-picker.html">Color Picker</a></li>
+              <li><a href="bootstrap-select.html">Bootstrap Select</a></li>
+              <li><a href="bootstrap-touchspin.html">Bootstrap TouchSpin</a></li>
+              <li><a href="range-slider.html">Range Slider</a></li>
+              <li><a href="text-editor.html">Text Editor</a></li>
+              <li><a href="markdown-parser.html">Markdown Parser</a></li>
+              <li><a href="select2.html">Select2</a></li>
+              <li><a href="form-layouts.html">Form Layouts</a></li>
+              <li><a href="form-validation.html">Form Validation</a></li>
+              <li><a href="form-wizard.html">Form Wizard</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon dropdown-toggle" href="#"><i data-feather="users"></i>User</a>
+            <ul>
+              <li><a href="user-profile.html">User Profile</a></li>
+              <li><a href="user-list.html">User List</a></li>
+              <li><a href="user-grid.html">User Grid</a></li>
+              <li><a href="user-profile-setting.html">Profile Settings</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon dropdown-toggle" href="#"><i class="material-icons">error_outline</i>Error
+              Pages</a>
+            <ul>
+              <li><a href="error-404.html">Page Not Found</a></li>
+              <li><a href="error-500.html">Internal Server Error</a></li>
+              <li><a href="error-503.html">Service Unavailable</a></li>
+              <li><a href="error-505.html">Forbidden Access</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="login.html"><i class="material-icons">exit_to_app</i>Login v1</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link has-icon" href="login2.html"><i class="material-icons">exit_to_app</i>Login v2</a>
+          </li>
+        </ul>
+      </div>
+      <!-- /Sidebar body -->
+
+    </div>
+    <!-- /Sidebar -->
+
+  </div>
+  <div class="sidebarBottomPosition sidebarBottomRight">
+    <a class="sidebarToggle" href="#" id="sidebarBottomMenu"><span class="blind">메뉴접기</span></a>
+  </div>
+</body>
+</html>

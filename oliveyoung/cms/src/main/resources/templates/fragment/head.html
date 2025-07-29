@@ -1,0 +1,24 @@
+<!-- fragment/head.html -->
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head th:fragment="commonHead(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title th:text="${title}">기본 제목</title>
+
+    <!-- css & font -->
+    <link rel="stylesheet" th:href="@{/font/inter/inter.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/vender/style.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/css/vender/sidebar-royal.css}" id="theme-css" type="text/css">
+
+    <!-- plugins -->
+    <link rel="stylesheet" th:href="@{/plugins/material-design-icons-iconfont/material-design-icons.min.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{/plugins/simplebar/simplebar.min.css}" type="text/css">
+
+    <!-- Content Page의 CSS fragment 삽입 -->
+    <th:block layout:fragment="css"></th:block>
+</head>
+</html>

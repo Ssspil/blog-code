@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<!-- head fragment 호출 -->
+<head th:replace="~{fragment/head :: commonHead('올리브영 CMS')}">
+
+<body>
+<!-- sidebar 삽입 -->
+<div th:replace="~{fragment/sidebar :: sidebarFragment}"></div>
+
+<!-- Main -->
+<div class="main">
+    <!-- header 삽입 -->
+    <div th:replace="~{fragment/header :: headerFragment}"></div>
+
+    <!-- 컨텐츠 Body -->
+    <th:block layout:fragment="content"></th:block>
+</div>
+<!-- /Main -->
+
+    <!-- header 삽입 -->
+    <div th:replace="~{fragment/footer :: footerFragment}"></div>
+</body>
+</html>
