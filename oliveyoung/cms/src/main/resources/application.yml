@@ -19,6 +19,7 @@ spring:
       hibernate:
         default_schema: web_service
         format_sql: true
+    open-in-view: false
 
 # 로깅
 logging:
