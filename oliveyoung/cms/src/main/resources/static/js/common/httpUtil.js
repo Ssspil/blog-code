@@ -51,6 +51,69 @@ const httpUtil = {
     },
 
     /**
+     * PATCH 요청 (JSON body 자동 처리)
+     * @param {string} url
+     * @param {object|string} [data] - POST 요청 데이터(JSON 또는 string)
+     * @param {object} [options] - 추가 옵션 (loading, timeout, headers, withCredentials, responseType)
+     * @returns {Promise}
+     */
+    patch(url, data = null, options = {}) {
+        let body = data;
+        const headers = options.headers ? { ...options.headers } : {};
+
+        if (data && typeof data === 'object' && !(data instanceof FormData) && !(typeof data === 'string')) {
+            body = JSON.stringify(data);
+            if (!headers['Content-Type']) {
+                headers['Content-Type'] = 'application/json;charset=UTF-8';
+            }
+        }
+
+        return this._fetch(url, { method: 'PATCH', body, headers, ...options });
+    },
+
+    /**
+     * PUT 요청 (JSON body 자동 처리)
+     * @param {string} url
+     * @param {object|string} [data] - POST 요청 데이터(JSON 또는 string)
+     * @param {object} [options] - 추가 옵션 (loading, timeout, headers, withCredentials, responseType)
+     * @returns {Promise}
+     */
+    put(url, data = null, options = {}) {
+        let body = data;
+        const headers = options.headers ? { ...options.headers } : {};
+
+        if (data && typeof data === 'object' && !(data instanceof FormData) && !(typeof data === 'string')) {
+            body = JSON.stringify(data);
+            if (!headers['Content-Type']) {
+                headers['Content-Type'] = 'application/json;charset=UTF-8';
+            }
+        }
+
+        return this._fetch(url, { method: 'PUT', body, headers, ...options });
+    },
+
+    /**
+     * DELETE 요청 (JSON body 자동 처리)
+     * @param {string} url
+     * @param {object|string} [data] - POST 요청 데이터(JSON 또는 string)
+     * @param {object} [options] - 추가 옵션 (loading, timeout, headers, withCredentials, responseType)
+     * @returns {Promise}
+     */
+    delete(url, data = null, options = {}) {
+        let body = data;
+        const headers = options.headers ? { ...options.headers } : {};
+
+        if (data && typeof data === 'object' && !(data instanceof FormData) && !(typeof data === 'string')) {
+            body = JSON.stringify(data);
+            if (!headers['Content-Type']) {
+                headers['Content-Type'] = 'application/json;charset=UTF-8';
+            }
+        }
+
+        return this._fetch(url, { method: 'DELETE', body, headers, ...options });
+    },
+
+    /**
      * 파일 업로드 (multipart/form-data)
      * @param {string} url
      * @param {object} data - 일반 필드 key-value 객체
@@ -170,5 +233,4 @@ const httpUtil = {
     }).catch(err => {
       console.error('POST 실패:', err);
     });
-
  */
