@@ -10,7 +10,7 @@
       <div class="sidebar-header">
         <a href="index.html" class="logo">
           <img th:src="@{/img/logo.svg}" alt="Logo" id="main-logo">
-          Mimity Admin
+          Olive Young
         </a>
         <a href="#" class="nav-link nav-icon rounded-circle ml-auto" data-toggle="sidebar">
           <i class="material-icons">close</i>
@@ -21,48 +21,49 @@
       <!-- Sidebar body -->
       <div class="sidebar-body">
         <ul class="nav nav-sub">
+          <!-- DASHBOARD -->
           <li class="nav-label">DASHBOARD</li>
           <li class="nav-item">
-            <a class="nav-link has-icon" href="index.html"><i data-feather="globe"></i>Website Analytics</a>
+            <a class="nav-link has-icon" href="/dashboard"><i data-feather="home"></i>메인</a>
+          </li>
+          <!-- // DASHBOARD -->
+
+          <!-- SERVICE -->
+          <li class="nav-label">SERVICE</li>
+          <li class="nav-item">
+            <a class="nav-link has-icon dropdown-toggle" href="#"><i data-feather="shopping-bag"></i>상품 관리</a>
+            <ul>
+              <li><a href="/product">상품 목록/등록/수정</a></li>
+              <li><a href="chart-bar.html">카테고리 관리</a></li>
+              <li><a href="chart-radar.html">상품 옵션 관리</a></li>
+              <li><a href="chart-doughnutpie.html">재고 관리</a></li>
+              <li><a href="sparkline.html">가격 관리</a></li>
+              <li><a href="sparkline.html">상품 리뷰 관리</a></li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link has-icon active" href="index2.html"><i data-feather="shopping-bag"></i>Sales
-              Monitoring</a>
-          </li>
-          <li class="nav-label">APPLICATION</li>
-          <li class="nav-item">
-            <a class="nav-link has-icon" href="mail.html"><i class="material-icons">mail_outline</i>Mail<span
-                    class="badge badge-warning ml-auto badge-pill">3</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link has-icon" href="file-manager.html"><i class="material-icons">folder_open</i>File
-              Manager</a>
+            <a class="nav-link has-icon dropdown-toggle" href="#"><i data-feather="truck"></i>주문/배송 관리</a>
+            <ul>
+              <li><a href="chart-line.html"><i data-feather="shopping-bag"></i>주문 목록/조회</a></li>
+              <li><a href="chart-bar.html">배송 상태</a></li>
+              <li><a href="chart-radar.html">상품 옵션 관리</a></li>
+              <li><a href="chart-doughnutpie.html">반품/교환</a></li>
+              <li><a href="sparkline.html">정산 내역 확인</a></li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link has-icon" href="chat.html"><i data-feather="message-square"></i>Chat</a>
+            <a class="nav-link has-icon dropdown-toggle" href="#"><i data-feather="users"></i>회원 관리</a>
+            <ul>
+              <li><a href="chart-line.html">회원 목록/조회</a></li>
+              <li><a href="chart-bar.html">등급 관리</a></li>
+              <li><a href="chart-radar.html">포인트 관리</a></li>
+            </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link has-icon" href="calendar.html"><i data-feather="calendar"></i>Calendar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link has-icon" href="todo-list.html"><i data-feather="check-square"></i>Todo List</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link has-icon" href="images.html"><i data-feather="image"></i>Images</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link has-icon" href="pricing.html"><i class="material-icons">list_alt</i>Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link has-icon" href="timeline.html"><i data-feather="clock"></i>Timeline</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link has-icon" href="invoice.html"><i class="fa fa-file-invoice-dollar"></i>Invoice</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link has-icon" href="forum.html"><i class="fa fa-comments"></i>Forum</a>
-          </li>
-          <li class="nav-label">UI DESIGN</li>
+          <!-- // SERVICE -->
+
+
+          <!-- SERVICE -->
+          <li class="nav-label">SYSTEM</li>
           <li class="nav-item">
             <a class="nav-link has-icon dropdown-toggle" href="#"><i data-feather="pie-chart"></i>Charts</a>
             <ul>
@@ -124,32 +125,12 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link has-icon dropdown-toggle" href="#"><i data-feather="users"></i>User</a>
-            <ul>
-              <li><a href="user-profile.html">User Profile</a></li>
-              <li><a href="user-list.html">User List</a></li>
-              <li><a href="user-grid.html">User Grid</a></li>
-              <li><a href="user-profile-setting.html">Profile Settings</a></li>
-            </ul>
+            <a class="nav-link has-icon" href="mail.html"><i class="material-icons">mail_outline</i>Mail<span class="badge badge-warning ml-auto badge-pill">3</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link has-icon dropdown-toggle" href="#"><i class="material-icons">error_outline</i>Error
-              Pages</a>
-            <ul>
-              <li><a href="error-404.html">Page Not Found</a></li>
-              <li><a href="error-500.html">Internal Server Error</a></li>
-              <li><a href="error-503.html">Service Unavailable</a></li>
-              <li><a href="error-505.html">Forbidden Access</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link has-icon" href="login.html"><i class="material-icons">exit_to_app</i>Login v1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link has-icon" href="login2.html"><i class="material-icons">exit_to_app</i>Login v2</a>
-          </li>
+          <!-- // SYSTEM -->
         </ul>
       </div>
+
       <!-- /Sidebar body -->
 
     </div>
