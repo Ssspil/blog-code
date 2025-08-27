@@ -1,4 +1,4 @@
-package com.jspp.web.product;
+package com.jspp.controller.web.product;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
