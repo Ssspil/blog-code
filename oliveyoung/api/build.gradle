@@ -18,4 +18,15 @@ dependencies {
     // Spring Boot
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // 테스트용 H2
+    testImplementation 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2'
+
+    // Spring Boot Test (JUnit5, Mockito)
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+    useJUnitPlatform()
 }

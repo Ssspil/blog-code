@@ -15,7 +15,15 @@ dependencies {
 
     // PostgreSQL Driver
     runtimeOnly 'org.postgresql:postgresql'
+
+    // 테스트용 H2
+    testImplementation 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2'
+
+    // Spring Boot Test (JUnit5 포함)
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
+    useJUnitPlatform()
 }

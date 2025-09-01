@@ -14,4 +14,18 @@ dependencies {
     // Spring Boot
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // 테스트용 H2
+    testImplementation 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2'
+
+    // Spring Boot Test (JUnit5, Mockito)
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // batch 모듈만 추가 (batch 테스트용)
+    testImplementation 'org.springframework.batch:spring-batch-test'
+}
+
+test {
+    useJUnitPlatform()
 }
