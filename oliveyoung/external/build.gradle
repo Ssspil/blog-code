@@ -1,6 +1,10 @@
 plugins {
-    id 'java'
+    id 'java-library'
 }
+
+// 일반 라이브러리 Jar 활성화
+bootJar.enabled = false
+jar.enabled = true
 
 dependencies {
 }
