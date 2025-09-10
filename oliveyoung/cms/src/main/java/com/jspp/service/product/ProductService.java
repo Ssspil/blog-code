@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductService {
 
     private final ProductRepository productRepository;
 
-    @Transactional(readOnly = true)
     public PageResponse<ProductListRes> getProductList(ProductListReq productListReq) {
         Pageable pageable = productListReq.toPageable();
         Page<Product> products = productRepository.findAll(pageable);
