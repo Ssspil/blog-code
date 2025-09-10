@@ -3,7 +3,7 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head th:fragment="commonHead(title)">
+<head th:fragment="commonHead(title, cssSlot, jsSlot)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -18,7 +18,10 @@
     <link rel="stylesheet" th:href="@{/plugins/material-design-icons-iconfont/material-design-icons.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/plugins/simplebar/simplebar.min.css}" type="text/css">
 
-    <!-- Content Page의 CSS fragment 삽입 -->
-    <th:block layout:fragment="css"></th:block>
+    <!-- 페이지별 CSS slot -->
+    <th:block th:replace="${cssSlot}"></th:block>
+
+    <!-- 페이지별 JS slot -->
+    <th:block th:replace="${jsSlot}"></th:block>
 </head>
 </html>

@@ -4,7 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <!-- head fragment 호출 -->
-<head th:replace="~{fragment/head :: commonHead('올리브영 CMS')}">
+<head th:replace="~{fragment/head :: commonHead('올리브영 CMS',~{::pageCss}, ~{::pageJs})}">
 
 <body>
 <!-- sidebar 삽입 -->
