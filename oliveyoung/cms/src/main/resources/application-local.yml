@@ -2,6 +2,7 @@ server:
   servlet:
     context-path: /cms
   port: 8081
+
 # ===============================
 # local Server Property
 # ===============================

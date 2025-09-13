@@ -14,14 +14,21 @@
     <link rel="stylesheet" th:href="@{/css/vender/style.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/css/vender/sidebar-royal.css}" id="theme-css" type="text/css">
 
+    <!-- 공통 js -->
+    <script th:src="@{/js/common/httpUtil.js}"></script>
+    <!-- contextPath 전역 변수 -->
+    <script th:inline="javascript">
+        const contextPath = /*[[${contextPath}]]*/ '';
+    </script>
+
     <!-- plugins -->
     <link rel="stylesheet" th:href="@{/plugins/material-design-icons-iconfont/material-design-icons.min.css}" type="text/css">
     <link rel="stylesheet" th:href="@{/plugins/simplebar/simplebar.min.css}" type="text/css">
 
     <!-- 페이지별 CSS slot -->
-    <th:block th:replace="${cssSlot}"></th:block>
+    <th:block th:replace="~{::pageCss} ?: ~{}"></th:block>
 
     <!-- 페이지별 JS slot -->
-    <th:block th:replace="${jsSlot}"></th:block>
+    <th:block th:replace="~{::pageJs} ?: ~{}"></th:block>
 </head>
 </html>

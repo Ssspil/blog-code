@@ -164,8 +164,8 @@ const httpUtil = {
     _fetch(url, options) {
         const defaults = {
             loading: false,
-            timeout: 0,
-            withCredentials: false,
+            timeout: 10000,                // 10초 타임아웃
+            withCredentials: true,         // 쿠키 포함
             responseType: 'json',
             headers: {},
         };

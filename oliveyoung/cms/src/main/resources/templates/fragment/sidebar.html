@@ -8,7 +8,7 @@
 
       <!-- Sidebar header -->
       <div class="sidebar-header">
-        <a href="index.html" class="logo">
+        <a th:href="@{/dashboard}" class="logo">
           <img th:src="@{/img/logo.svg}" alt="Logo" id="main-logo">
           Olive Young
         </a>
@@ -24,7 +24,7 @@
           <!-- DASHBOARD -->
           <li class="nav-label">DASHBOARD</li>
           <li class="nav-item">
-            <a class="nav-link has-icon" href="/dashboard"><i data-feather="home"></i>메인</a>
+            <a class="nav-link has-icon" th:href="@{/dashboard}"><i data-feather="home"></i>메인</a>
           </li>
           <!-- // DASHBOARD -->
 
@@ -33,7 +33,7 @@
           <li class="nav-item">
             <a class="nav-link has-icon dropdown-toggle" href="#"><i data-feather="shopping-bag"></i>상품 관리</a>
             <ul>
-              <li><a href="/product">상품 목록/등록/수정</a></li>
+              <li><a th:href="@{/product}">상품 목록/등록/수정</a></li>
               <li><a href="chart-bar.html">카테고리 관리</a></li>
               <li><a href="chart-radar.html">상품 옵션 관리</a></li>
               <li><a href="chart-doughnutpie.html">재고 관리</a></li>
