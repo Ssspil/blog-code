@@ -12,13 +12,18 @@ function productList(page = 0) {
 
     httpUtil.get(`/cms/api/product`, reqData
     ).then(result => {
-        let data = result.content;
         let totalElements = result.totalElements;
+        let totalPages = result.totalPages;
+        let isLast = result.isLast;
+        let isFirst = result.isFirst;
 
         const tbody = document.getElementById("mainContent");
         tbody.innerHTML = result.content
             .map(product => makeProductListHTML(product))
-            .join("")
+            .join("");
+
+        // 페이지네이션 갱신
+        renderPagination(page, PAGE_SIZE, totalPages, totalElements, isLast, isFirst);
 
     }).catch(err => {
         console.error('GET 실패:', err);
@@ -27,7 +32,6 @@ function productList(page = 0) {
 
 // 상품 테이블 row data 만드는 HTML
 function makeProductListHTML(data) {
-    console.log(data);
     let productId = data.id;
     let productCode = data.productCode;
     let productName = data.productName;

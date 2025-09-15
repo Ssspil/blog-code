@@ -194,8 +194,8 @@ const httpUtil = {
 
                 if (!response.ok) {
                     if (response.status === 401 || response.status === 440) {
-                        alert('세션이 만료되었습니다. 다시 로그인해주세요.');
-                        location.href = '/login';
+                        // alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+                        // location.href = '/login';
                     }
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
