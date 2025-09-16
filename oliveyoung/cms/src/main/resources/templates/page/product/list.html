@@ -16,23 +16,43 @@
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="main-breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/dashboard">홈</a></li>
-        <li class="breadcrumb-item">상품 관리</li>
-        <li class="breadcrumb-item active" aria-current="page">상품 목록</li>
+        <li class="breadcrumb-item"><a th:href="@{/dashboard}">홈</a></li>
+        <li class="breadcrumb-item"><a href="#">상품 관리</a></li>
+        <li class="breadcrumb-item" aria-current="page">상품 목록</li>
       </ol>
     </nav>
     <!-- /Breadcrumb -->
 
-    <div class="d-flex">
-      <div class="list-with-gap">
-        <button class="btn btn-primary has-icon" type="button" data-toggle="modal" data-target="#addUser"><i class="material-icons mr-2">add_circle_outline</i>상품 등록</button>
+    <div class="d-flex align-items-center mb-3 flex-wrap gap-3" >
+      <!-- 상품 등록 / Import / Export 버튼 -->
+      <div class="btn-group div-gap-10" role="group" aria-label="상품 버튼 그룹">
+        <button class="btn btn-primary has-icon" type="button" data-toggle="modal" data-target="#addUser">
+          <i class="material-icons mr-2">add_circle_outline</i>상품 등록
+        </button>
         <button class="btn btn-light btn-sm d-none d-sm-block">Import user</button>
         <button class="btn btn-light btn-sm d-none d-sm-block">Export user (Excel)</button>
       </div>
-      <button class="btn btn-primary ml-auto align-self-end has-icon" type="button" onclick="document.querySelector('#filter').toggleAttribute('hidden')">
-        <i class="material-icons mr-2">filter_list</i>상세 검색
-      </button>
+
+      <!-- 검색 select + input + 상세 검색 버튼 -->
+      <div class="d-flex align-items-center gap-2 ml-auto div-gap-10 width-650">
+        <button class="btn btn-primary has-icon width-250" type="button" onclick="document.querySelector('#filter').toggleAttribute('hidden')">
+          <i class="material-icons mr-2">filter_list</i>상세 검색
+        </button>
+
+        <select class="form-control max-width-100" id="searchType">
+          <option value="all" selected>전체</option>
+          <option value="productName">상품명</option>
+          <option value="category">카테고리</option>
+          <option value="brand">브랜드</option>
+        </select>
+
+        <input type="text" class="form-control" id="searchKeyword" placeholder="검색어 입력">
+        <button class="btn btn-primary has-icon width-200" type="button" id="productSearchBtn">
+          <i class="material-icons mr-2">search</i>검색
+        </button>
+      </div>
     </div>
+
     <div class="card mt-3">
       <div class="table-responsive">
         <table class="table table-nostretch table-align-middle mb-0">

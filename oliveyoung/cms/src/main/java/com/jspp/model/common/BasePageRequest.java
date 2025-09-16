@@ -13,6 +13,8 @@ public abstract class BasePageRequest {
     private int size = 10;
     private String sortBy = "id";
     private String direction = "DESC";
+    private String searchKeyword;
+    private String searchType;
 
     public Pageable toPageable() {
         Sort sort = Sort.by(Sort.Direction.fromString(direction), sortBy);
