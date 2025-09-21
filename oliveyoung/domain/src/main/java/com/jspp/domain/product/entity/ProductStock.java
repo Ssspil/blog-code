@@ -1,6 +1,6 @@
-package com.jspp.domain.product;
+package com.jspp.domain.product.entity;
 
-import com.jspp.domain.common.BaseTimeEntity;
+import com.jspp.domain.common.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -8,7 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,28 +17,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(schema = "web_service", name = "product_options")
+@Table(schema = "web_service", name = "partners")
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class ProductOption extends BaseTimeEntity {
+public class ProductStock extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "option_id", nullable = false)
+    private ProductOption productOption;
 
-    @Column(name = "option_name", nullable = false, length = 100)
-    private String optionName;
-
-    @Column(name = "option_value", nullable = false, length = 100)
-    private String optionValue;
-
-    @Column(name = "price_diff", nullable = false)
-    private Integer priceDiff;
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
 }

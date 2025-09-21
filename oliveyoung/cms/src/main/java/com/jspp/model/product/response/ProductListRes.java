@@ -1,7 +1,7 @@
 package com.jspp.model.product.response;
 
-import com.jspp.domain.product.Product;
-import com.jspp.domain.product.ProductStatus;
+import com.jspp.domain.product.entity.Product;
+import com.jspp.domain.product.entity.ProductStatus;
 import lombok.Getter;
 
 @Getter

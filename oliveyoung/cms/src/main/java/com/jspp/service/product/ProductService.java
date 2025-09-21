@@ -1,7 +1,8 @@
 package com.jspp.service.product;
 
-import com.jspp.domain.product.Product;
-import com.jspp.domain.product.repository.ProductRepository;
+import com.jspp.domain.product.dto.ProductSearchFilter;
+import com.jspp.domain.product.entity.Product;
+import com.jspp.domain.product.repository.ProductQueryRepository;
 import com.jspp.model.common.PageResponse;
 import com.jspp.model.product.request.ProductListReq;
 import com.jspp.model.product.response.ProductListRes;
@@ -16,11 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ProductService {
 
-    private final ProductRepository productRepository;
+    private final ProductQueryRepository productQueryRepository;
 
     public PageResponse<ProductListRes> getProductList(ProductListReq productListReq) {
         Pageable pageable = productListReq.toPageable();
-        Page<Product> products = productRepository.findAll(pageable);
+        ProductSearchFilter searchFilter = ProductSearchFilter.create(productListReq.getSearchKeyword(), productListReq.getSearchType());
+        Page<Product> products = productQueryRepository.searchProduct(pageable, searchFilter);
         Page<ProductListRes> dtoPage = products.map(ProductListRes::from);  // Entity -> DTO로 변경
         return PageResponse.from(dtoPage);  // Page 객체 추출하여 응답
     }

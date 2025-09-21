@@ -1,4 +1,4 @@
-package com.jspp.domain.common;
+package com.jspp.domain.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

@@ -1,6 +1,6 @@
-package com.jspp.domain.file;
+package com.jspp.domain.file.entity;
 
-import com.jspp.domain.common.BaseTimeEntity;
+import com.jspp.domain.common.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

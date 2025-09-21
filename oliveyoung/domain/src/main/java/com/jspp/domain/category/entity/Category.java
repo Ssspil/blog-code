@@ -1,6 +1,6 @@
-package com.jspp.domain.category;
+package com.jspp.domain.category.entity;
 
-import com.jspp.domain.common.BaseTimeEntity;
+import com.jspp.domain.common.entity.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

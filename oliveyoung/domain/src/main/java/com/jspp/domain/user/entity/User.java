@@ -1,7 +1,7 @@
-package com.jspp.domain.user;
+package com.jspp.domain.user.entity;
 
-import com.jspp.domain.common.BaseTimeEntity;
-import com.jspp.domain.partner.Partner;
+import com.jspp.domain.common.entity.BaseTimeEntity;
+import com.jspp.domain.partner.entity.Partner;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
