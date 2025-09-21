@@ -26,6 +26,8 @@ public class ProductQueryRepositoryImpl implements ProductQueryRepository {
 
         List<Product> results = queryFactory
                 .selectFrom(product)
+                .leftJoin(product.category).fetchJoin()
+                .leftJoin(product.brand).fetchJoin()
                 .where(searchCondition(
                         productSearchFilter.keyword(),
                         productSearchFilter.searchType()
